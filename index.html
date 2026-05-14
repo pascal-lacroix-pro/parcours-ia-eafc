@@ -4,198 +4,891 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Parcours IA — EAFC Charlemagne</title>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
     <style>
-      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-      :root {
-        --bg:#111827; --surface:#1a2234; --surface2:#1f2b40; --surface3:#243044;
-        --border:#2a3a52; --border2:#334560; --text:#e8edf5;
-        --muted:#8fa5c8; --muted2:#7388ab;
-        --accent:#bf00ff; --accent-lt:rgba(191,0,255,0.12);
-        --accent-md:rgba(191,0,255,0.25); --accent-glow:rgba(191,0,255,0.4);
-        --green:#00ff88; --green-lt:rgba(0,255,136,0.1);
-        --red:#ff4466; --gold:#ffd700; --locked-bg:#131b2a;
-        --mono:'JetBrains Mono',monospace; --sans:'Syne',sans-serif;
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
       }
-      body { background:var(--bg); color:var(--text); font-family:var(--mono); min-height:100vh; overflow-x:hidden; }
-      body::after { content:''; position:fixed; inset:0; background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px); pointer-events:none; z-index:9999; }
-      .page { max-width:900px; margin:0 auto; padding:2rem 1.5rem 5rem; }
+      :root {
+        --bg: #111827;
+        --surface: #1a2234;
+        --surface2: #1f2b40;
+        --surface3: #243044;
+        --border: #2a3a52;
+        --border2: #334560;
+        --text: #e8edf5;
+        --muted: #8fa5c8;
+        --muted2: #7388ab;
+        --accent: #bf00ff;
+        --accent-lt: rgba(191, 0, 255, 0.12);
+        --accent-md: rgba(191, 0, 255, 0.25);
+        --accent-glow: rgba(191, 0, 255, 0.4);
+        --green: #00ff88;
+        --green-lt: rgba(0, 255, 136, 0.1);
+        --red: #ff4466;
+        --gold: #ffd700;
+        --locked-bg: #131b2a;
+        --mono: "JetBrains Mono", monospace;
+        --sans: "Syne", sans-serif;
+      }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--mono);
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(0, 0, 0, 0.03) 2px,
+          rgba(0, 0, 0, 0.03) 4px
+        );
+        pointer-events: none;
+        z-index: 9999;
+      }
+      .page {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem 5rem;
+      }
 
       /* CONNEXION */
-      #setup-screen { min-height:100vh; display:flex; align-items:center; justify-content:center; }
-      .setup-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:2.5rem; width:100%; max-width:480px; position:relative; overflow:hidden; }
-      .setup-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--accent),#8800ff); box-shadow:0 0 12px var(--accent-glow); }
-      .setup-logo { font-family:var(--sans); font-size:1.6rem; font-weight:800; margin-bottom:0.25rem; }
-      .setup-logo span { color:var(--accent); text-shadow:0 0 16px var(--accent-glow); }
-      .setup-sub { font-size:0.62rem; letter-spacing:0.15em; color:var(--muted); text-transform:uppercase; margin-bottom:2rem; }
-      .setup-label { font-size:0.58rem; letter-spacing:0.15em; color:var(--accent); text-transform:uppercase; margin-bottom:0.4rem; display:block; }
-      .setup-input { width:100%; font-family:var(--mono); font-size:0.8rem; background:var(--bg); border:1px solid var(--border2); border-radius:6px; padding:0.65rem 0.85rem; color:var(--text); outline:none; margin-bottom:0.5rem; transition:border-color 0.15s,box-shadow 0.15s; }
-      .setup-input:focus { border-color:var(--accent); box-shadow:0 0 10px var(--accent-lt); }
-      .setup-hint { font-size:0.62rem; color:var(--muted2); line-height:1.6; margin-bottom:1.5rem; }
-      .setup-hint code { background:var(--surface2); border:1px solid var(--border); border-radius:3px; padding:0.1rem 0.35rem; font-size:0.6rem; color:var(--muted); }
-      .btn-connect { width:100%; font-family:var(--mono); font-size:0.8rem; letter-spacing:0.1em; background:var(--accent); color:#fff; border:none; border-radius:6px; padding:0.75rem; cursor:pointer; transition:all 0.15s; text-transform:uppercase; font-weight:500; }
-      .btn-connect:hover { box-shadow:0 0 20px var(--accent-glow); opacity:0.9; }
-      .btn-connect:disabled { opacity:0.5; cursor:default; }
-      .setup-err { font-size:0.68rem; color:var(--red); margin-top:0.75rem; display:none; line-height:1.5; }
-      .setup-err.show { display:block; }
-      .setup-loading { display:none; align-items:center; gap:0.5rem; font-size:0.68rem; color:var(--muted); margin-top:0.75rem; }
-      .setup-loading.show { display:flex; }
-      .spinner { width:14px; height:14px; border:2px solid var(--border2); border-top-color:var(--accent); border-radius:50%; animation:spin 0.7s linear infinite; }
-      @keyframes spin { to { transform:rotate(360deg); } }
+      #setup-screen {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .setup-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 2.5rem;
+        width: 100%;
+        max-width: 480px;
+        position: relative;
+        overflow: hidden;
+      }
+      .setup-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--accent), #8800ff);
+        box-shadow: 0 0 12px var(--accent-glow);
+      }
+      .setup-logo {
+        font-family: var(--sans);
+        font-size: 1.6rem;
+        font-weight: 800;
+        margin-bottom: 0.25rem;
+      }
+      .setup-logo span {
+        color: var(--accent);
+        text-shadow: 0 0 16px var(--accent-glow);
+      }
+      .setup-sub {
+        font-size: 0.62rem;
+        letter-spacing: 0.15em;
+        color: var(--muted);
+        text-transform: uppercase;
+        margin-bottom: 2rem;
+      }
+      .setup-label {
+        font-size: 0.58rem;
+        letter-spacing: 0.15em;
+        color: var(--accent);
+        text-transform: uppercase;
+        margin-bottom: 0.4rem;
+        display: block;
+      }
+      .setup-input {
+        width: 100%;
+        font-family: var(--mono);
+        font-size: 0.8rem;
+        background: var(--bg);
+        border: 1px solid var(--border2);
+        border-radius: 6px;
+        padding: 0.65rem 0.85rem;
+        color: var(--text);
+        outline: none;
+        margin-bottom: 0.5rem;
+        transition:
+          border-color 0.15s,
+          box-shadow 0.15s;
+      }
+      .setup-input:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 10px var(--accent-lt);
+      }
+      .setup-hint {
+        font-size: 0.62rem;
+        color: var(--muted2);
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+      }
+      .setup-hint code {
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        border-radius: 3px;
+        padding: 0.1rem 0.35rem;
+        font-size: 0.6rem;
+        color: var(--muted);
+      }
+      .btn-connect {
+        width: 100%;
+        font-family: var(--mono);
+        font-size: 0.8rem;
+        letter-spacing: 0.1em;
+        background: var(--accent);
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        padding: 0.75rem;
+        cursor: pointer;
+        transition: all 0.15s;
+        text-transform: uppercase;
+        font-weight: 500;
+      }
+      .btn-connect:hover {
+        box-shadow: 0 0 20px var(--accent-glow);
+        opacity: 0.9;
+      }
+      .btn-connect:disabled {
+        opacity: 0.5;
+        cursor: default;
+      }
+      .setup-err {
+        font-size: 0.68rem;
+        color: var(--red);
+        margin-top: 0.75rem;
+        display: none;
+        line-height: 1.5;
+      }
+      .setup-err.show {
+        display: block;
+      }
+      .setup-loading {
+        display: none;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.68rem;
+        color: var(--muted);
+        margin-top: 0.75rem;
+      }
+      .setup-loading.show {
+        display: flex;
+      }
+      .spinner {
+        width: 14px;
+        height: 14px;
+        border: 2px solid var(--border2);
+        border-top-color: var(--accent);
+        border-radius: 50%;
+        animation: spin 0.7s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
 
       /* HEADER */
-      header { display:flex; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; gap:1.5rem; margin-bottom:3rem; padding-bottom:1.5rem; border-bottom:1px solid var(--border); }
-      .header-brand { display:flex; flex-direction:column; gap:0.25rem; }
-      .header-label { font-size:0.6rem; letter-spacing:0.25em; color:var(--accent); text-transform:uppercase; }
-      .header-title { font-family:var(--sans); font-size:1.8rem; font-weight:800; line-height:1; letter-spacing:-0.02em; }
-      .header-title span { color:var(--accent); text-shadow:0 0 20px var(--accent-glow); }
-      .header-sub { font-size:0.65rem; color:var(--muted); letter-spacing:0.1em; margin-top:0.25rem; }
-      .identity-connected { background:var(--surface); border:1px solid var(--green); border-radius:6px; padding:0.75rem 1rem; display:flex; align-items:center; gap:0.75rem; }
-      .identity-dot { width:8px; height:8px; background:var(--green); border-radius:50%; flex-shrink:0; animation:blink-dot 2s ease infinite; }
-      @keyframes blink-dot { 0%,100%{opacity:1} 50%{opacity:0.4} }
-      .identity-info { display:flex; flex-direction:column; gap:0.15rem; }
-      .identity-name { font-size:0.85rem; font-weight:500; }
-      .identity-meta { font-size:0.58rem; letter-spacing:0.1em; color:var(--muted); text-transform:uppercase; }
-      .btn-disconnect { font-family:var(--mono); font-size:0.55rem; letter-spacing:0.08em; color:var(--muted2); background:none; border:1px solid var(--border); border-radius:4px; padding:0.25rem 0.5rem; cursor:pointer; transition:all 0.15s; margin-left:auto; }
-      .btn-disconnect:hover { color:var(--red); border-color:var(--red); }
+      header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid var(--border);
+      }
+      .header-brand {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+      .header-label {
+        font-size: 0.6rem;
+        letter-spacing: 0.25em;
+        color: var(--accent);
+        text-transform: uppercase;
+      }
+      .header-title {
+        font-family: var(--sans);
+        font-size: 1.8rem;
+        font-weight: 800;
+        line-height: 1;
+        letter-spacing: -0.02em;
+      }
+      .header-title span {
+        color: var(--accent);
+        text-shadow: 0 0 20px var(--accent-glow);
+      }
+      .header-sub {
+        font-size: 0.65rem;
+        color: var(--muted);
+        letter-spacing: 0.1em;
+        margin-top: 0.25rem;
+      }
+      .identity-connected {
+        background: var(--surface);
+        border: 1px solid var(--green);
+        border-radius: 6px;
+        padding: 0.75rem 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      .identity-dot {
+        width: 8px;
+        height: 8px;
+        background: var(--green);
+        border-radius: 50%;
+        flex-shrink: 0;
+        animation: blink-dot 2s ease infinite;
+      }
+      @keyframes blink-dot {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.4;
+        }
+      }
+      .identity-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.15rem;
+      }
+      .identity-name {
+        font-size: 0.85rem;
+        font-weight: 500;
+      }
+      .identity-meta {
+        font-size: 0.58rem;
+        letter-spacing: 0.1em;
+        color: var(--muted);
+        text-transform: uppercase;
+      }
+      .btn-disconnect {
+        font-family: var(--mono);
+        font-size: 0.55rem;
+        letter-spacing: 0.08em;
+        color: var(--muted2);
+        background: none;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        padding: 0.25rem 0.5rem;
+        cursor: pointer;
+        transition: all 0.15s;
+        margin-left: auto;
+      }
+      .btn-disconnect:hover {
+        color: var(--red);
+        border-color: var(--red);
+      }
 
       /* HUD */
-      .hud { display:grid; grid-template-columns:repeat(4,1fr); gap:0.75rem; margin-bottom:1.5rem; }
-      .hud-cell { background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:0.875rem 1rem; position:relative; overflow:hidden; }
-      .hud-cell::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--accent); opacity:0.4; }
-      .hud-cell.active::before { opacity:1; box-shadow:0 0 8px var(--accent-glow); }
-      .hud-label { font-size:0.55rem; letter-spacing:0.15em; color:var(--muted); text-transform:uppercase; margin-bottom:0.4rem; }
-      .hud-val { font-family:var(--sans); font-size:1.5rem; font-weight:800; line-height:1; }
-      .hud-val.accent { color:var(--accent); text-shadow:0 0 12px var(--accent-glow); }
+      .hud {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
+      }
+      .hud-cell {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 0.875rem 1rem;
+        position: relative;
+        overflow: hidden;
+      }
+      .hud-cell::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: var(--accent);
+        opacity: 0.4;
+      }
+      .hud-cell.active::before {
+        opacity: 1;
+        box-shadow: 0 0 8px var(--accent-glow);
+      }
+      .hud-label {
+        font-size: 0.55rem;
+        letter-spacing: 0.15em;
+        color: var(--muted);
+        text-transform: uppercase;
+        margin-bottom: 0.4rem;
+      }
+      .hud-val {
+        font-family: var(--sans);
+        font-size: 1.5rem;
+        font-weight: 800;
+        line-height: 1;
+      }
+      .hud-val.accent {
+        color: var(--accent);
+        text-shadow: 0 0 12px var(--accent-glow);
+      }
 
       /* XP */
-      .xp-wrap { margin-bottom:2rem; }
-      .xp-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem; }
-      .xp-label { font-size:0.6rem; letter-spacing:0.15em; color:var(--muted); text-transform:uppercase; }
-      .xp-pct { font-size:0.7rem; color:var(--accent); font-weight:500; }
-      .xp-track { height:4px; background:var(--surface2); border-radius:99px; overflow:visible; position:relative; }
-      .xp-fill { height:100%; background:linear-gradient(90deg,var(--accent),#8800ff); border-radius:99px; transition:width 0.8s cubic-bezier(0.34,1.56,0.64,1); position:relative; }
-      .xp-fill::after { content:''; position:absolute; right:-2px; top:-3px; width:10px; height:10px; background:var(--accent); border-radius:50%; box-shadow:0 0 8px var(--accent-glow); }
+      .xp-wrap {
+        margin-bottom: 2rem;
+      }
+      .xp-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.4rem;
+      }
+      .xp-label {
+        font-size: 0.6rem;
+        letter-spacing: 0.15em;
+        color: var(--muted);
+        text-transform: uppercase;
+      }
+      .xp-pct {
+        font-size: 0.7rem;
+        color: var(--accent);
+        font-weight: 500;
+      }
+      .xp-track {
+        height: 4px;
+        background: var(--surface2);
+        border-radius: 99px;
+        overflow: visible;
+        position: relative;
+      }
+      .xp-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--accent), #8800ff);
+        border-radius: 99px;
+        transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        position: relative;
+      }
+      .xp-fill::after {
+        content: "";
+        position: absolute;
+        right: -2px;
+        top: -3px;
+        width: 10px;
+        height: 10px;
+        background: var(--accent);
+        border-radius: 50%;
+        box-shadow: 0 0 8px var(--accent-glow);
+      }
 
       /* SYNC */
-      .sync-bar { display:flex; align-items:center; gap:0.6rem; font-size:0.6rem; color:var(--muted2); margin-bottom:1.25rem; }
-      .sync-dot { width:6px; height:6px; border-radius:50%; background:var(--muted2); flex-shrink:0; }
-      .sync-dot.ok { background:var(--green); }
-      .sync-dot.loading { background:var(--gold); animation:blink-dot 1s infinite; }
-      .sync-dot.err { background:var(--red); }
-      .btn-refresh { font-family:var(--mono); font-size:0.55rem; letter-spacing:0.08em; color:var(--accent); background:var(--accent-lt); border:1px solid var(--accent); border-radius:3px; padding:0.15rem 0.5rem; cursor:pointer; margin-left:auto; }
+      .sync-bar {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-size: 0.6rem;
+        color: var(--muted2);
+        margin-bottom: 1.25rem;
+      }
+      .sync-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--muted2);
+        flex-shrink: 0;
+      }
+      .sync-dot.ok {
+        background: var(--green);
+      }
+      .sync-dot.loading {
+        background: var(--gold);
+        animation: blink-dot 1s infinite;
+      }
+      .sync-dot.err {
+        background: var(--red);
+      }
+      .btn-refresh {
+        font-family: var(--mono);
+        font-size: 0.55rem;
+        letter-spacing: 0.08em;
+        color: var(--accent);
+        background: var(--accent-lt);
+        border: 1px solid var(--accent);
+        border-radius: 3px;
+        padding: 0.15rem 0.5rem;
+        cursor: pointer;
+        margin-left: auto;
+      }
 
       /* SALLES */
-      .salles { display:flex; flex-direction:column; gap:0.75rem; }
-      .salle { border-radius:8px; overflow:hidden; border:1px solid var(--border); background:var(--surface); transition:border-color 0.2s,box-shadow 0.2s; animation:fadeSlide 0.3s ease both; }
-      .salle:nth-child(1){animation-delay:.05s} .salle:nth-child(2){animation-delay:.1s}
-      .salle:nth-child(3){animation-delay:.15s} .salle:nth-child(4){animation-delay:.2s} .salle:nth-child(5){animation-delay:.25s}
-      .salle.unlocked { border-color:var(--border2); }
-      .salle.active-salle { border-color:var(--accent); box-shadow:0 0 20px var(--accent-lt); }
-      .salle.locked-salle { background:var(--locked-bg); opacity:0.6; }
-      .salle-header { display:flex; align-items:center; gap:1rem; padding:1rem 1.25rem; cursor:pointer; user-select:none; transition:background 0.15s; }
-      .salle-header:hover { background:var(--surface2); }
-      .locked-salle .salle-header { cursor:default; }
-      .salle-icon { font-size:1.1rem; width:28px; text-align:center; flex-shrink:0; }
-      .salle-num { font-size:0.55rem; letter-spacing:0.15em; color:var(--muted); text-transform:uppercase; min-width:52px; }
-      .salle-title { font-family:var(--sans); font-size:0.9rem; font-weight:700; flex:1; }
-      .locked-salle .salle-title { color:var(--muted2); }
-      .salle-badge { font-size:0.6rem; letter-spacing:0.1em; padding:0.2rem 0.6rem; border-radius:3px; text-transform:uppercase; font-weight:700; white-space:nowrap; }
-      .badge-locked { background:var(--locked-bg); color:var(--muted2); border:1px solid var(--border); }
-      .badge-open { background:var(--accent-lt); color:var(--accent); border:1px solid var(--accent); animation:pulse-badge 2s infinite; }
-      .badge-done { background:var(--green-lt); color:var(--green); border:1px solid var(--green); }
-      @keyframes pulse-badge { 0%,100%{box-shadow:0 0 0 0 var(--accent-md)} 50%{box-shadow:0 0 8px 2px var(--accent-lt)} }
-      .salle-chevron { font-size:0.7rem; color:var(--muted); transition:transform 0.2s; flex-shrink:0; }
-      .salle.expanded .salle-chevron { transform:rotate(180deg); }
-      .salle-body { display:none; padding:0 1.25rem 1.25rem; border-top:1px solid var(--border); }
-      .salle.expanded .salle-body { display:block; }
+      .salles {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+      .salle {
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+        animation: fadeSlide 0.3s ease both;
+      }
+      .salle:nth-child(1) {
+        animation-delay: 0.05s;
+      }
+      .salle:nth-child(2) {
+        animation-delay: 0.1s;
+      }
+      .salle:nth-child(3) {
+        animation-delay: 0.15s;
+      }
+      .salle:nth-child(4) {
+        animation-delay: 0.2s;
+      }
+      .salle:nth-child(5) {
+        animation-delay: 0.25s;
+      }
+      .salle.unlocked {
+        border-color: var(--border2);
+      }
+      .salle.active-salle {
+        border-color: var(--accent);
+        box-shadow: 0 0 20px var(--accent-lt);
+      }
+      .salle.locked-salle {
+        background: var(--locked-bg);
+        opacity: 0.6;
+      }
+      .salle-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem 1.25rem;
+        cursor: pointer;
+        user-select: none;
+        transition: background 0.15s;
+      }
+      .salle-header:hover {
+        background: var(--surface2);
+      }
+      .locked-salle .salle-header {
+        cursor: default;
+      }
+      .salle-icon {
+        font-size: 1.1rem;
+        width: 28px;
+        text-align: center;
+        flex-shrink: 0;
+      }
+      .salle-num {
+        font-size: 0.55rem;
+        letter-spacing: 0.15em;
+        color: var(--muted);
+        text-transform: uppercase;
+        min-width: 52px;
+      }
+      .salle-title {
+        font-family: var(--sans);
+        font-size: 0.9rem;
+        font-weight: 700;
+        flex: 1;
+      }
+      .locked-salle .salle-title {
+        color: var(--muted2);
+      }
+      .salle-badge {
+        font-size: 0.6rem;
+        letter-spacing: 0.1em;
+        padding: 0.2rem 0.6rem;
+        border-radius: 3px;
+        text-transform: uppercase;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+      .badge-locked {
+        background: var(--locked-bg);
+        color: var(--muted2);
+        border: 1px solid var(--border);
+      }
+      .badge-open {
+        background: var(--accent-lt);
+        color: var(--accent);
+        border: 1px solid var(--accent);
+        animation: pulse-badge 2s infinite;
+      }
+      .badge-done {
+        background: var(--green-lt);
+        color: var(--green);
+        border: 1px solid var(--green);
+      }
+      @keyframes pulse-badge {
+        0%,
+        100% {
+          box-shadow: 0 0 0 0 var(--accent-md);
+        }
+        50% {
+          box-shadow: 0 0 8px 2px var(--accent-lt);
+        }
+      }
+      .salle-chevron {
+        font-size: 0.7rem;
+        color: var(--muted);
+        transition: transform 0.2s;
+        flex-shrink: 0;
+      }
+      .salle.expanded .salle-chevron {
+        transform: rotate(180deg);
+      }
+      .salle-body {
+        display: none;
+        padding: 0 1.25rem 1.25rem;
+        border-top: 1px solid var(--border);
+      }
+      .salle.expanded .salle-body {
+        display: block;
+      }
 
       /* CONTENU */
-      .salle-desc { font-size:0.78rem; color:var(--muted); line-height:1.7; margin:1rem 0; }
-      .mission-label { font-size:0.55rem; letter-spacing:0.15em; color:var(--accent); text-transform:uppercase; margin-bottom:0.5rem; margin-top:1.25rem; }
-      .livrables { list-style:none; display:flex; flex-direction:column; gap:0.3rem; margin-bottom:1rem; }
-      .livrables li { font-size:0.78rem; color:var(--muted); display:flex; gap:0.5rem; align-items:baseline; }
-      .livrables li::before { content:'›'; color:var(--accent); flex-shrink:0; }
+      .salle-desc {
+        font-size: 0.78rem;
+        color: var(--muted);
+        line-height: 1.7;
+        margin: 1rem 0;
+      }
+      .mission-label {
+        font-size: 0.55rem;
+        letter-spacing: 0.15em;
+        color: var(--accent);
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
+        margin-top: 1.25rem;
+      }
+      .livrables {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+        margin-bottom: 1rem;
+      }
+      .livrables li {
+        font-size: 0.78rem;
+        color: var(--muted);
+        display: flex;
+        gap: 0.5rem;
+        align-items: baseline;
+      }
+      .livrables li::before {
+        content: "›";
+        color: var(--accent);
+        flex-shrink: 0;
+      }
 
       /* VIDÉOS */
-      .videos-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:0.75rem; margin:1rem 0; }
-      .video-card { background:var(--surface2); border:1px solid var(--border); border-radius:6px; overflow:hidden; transition:border-color 0.2s; }
-      .video-card:hover { border-color:var(--accent); }
-      .video-embed { width:100%; aspect-ratio:16/9; display:block; }
-      .video-label { padding:0.5rem 0.75rem; font-size:0.65rem; letter-spacing:0.08em; color:var(--muted); text-transform:uppercase; border-top:1px solid var(--border); }
-      .video-placeholder { width:100%; aspect-ratio:16/9; background:var(--surface3); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.5rem; color:var(--muted2); font-size:0.7rem; }
-      .video-placeholder span { font-size:1.5rem; }
+      .videos-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+        margin: 1rem 0;
+      }
+      .video-card {
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        overflow: hidden;
+        transition: border-color 0.2s;
+      }
+      .video-card:hover {
+        border-color: var(--accent);
+      }
+      .video-embed {
+        width: 100%;
+        aspect-ratio: 16/9;
+        display: block;
+      }
+      .video-label {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.65rem;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+        text-transform: uppercase;
+        border-top: 1px solid var(--border);
+      }
+      .video-placeholder {
+        width: 100%;
+        aspect-ratio: 16/9;
+        background: var(--surface3);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        color: var(--muted2);
+        font-size: 0.7rem;
+      }
+      .video-placeholder span {
+        font-size: 1.5rem;
+      }
 
       /* MOODLE BLOCK */
-      .moodle-block { background:var(--surface2); border:1px solid var(--border); border-radius:8px; overflow:hidden; margin:1rem 0; }
-      .moodle-block-header { padding:0.75rem 1rem; border-bottom:1px solid var(--border); font-size:0.6rem; letter-spacing:0.15em; color:var(--accent); text-transform:uppercase; display:flex; justify-content:space-between; align-items:center; }
-      .moodle-activity { padding:0.75rem 1rem; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:0.75rem; }
-      .moodle-activity:last-child { border-bottom:none; }
-      .activity-status { width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.65rem; flex-shrink:0; }
-      .activity-status.done { background:var(--green-lt); border:1px solid var(--green); color:var(--green); }
-      .activity-status.pending { background:var(--surface3); border:1px solid var(--border); color:var(--muted2); }
-      .activity-name { font-size:0.75rem; color:var(--text); flex:1; }
-      .activity-grade { font-size:0.7rem; color:var(--accent); font-weight:500; }
+      .moodle-block {
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        overflow: hidden;
+        margin: 1rem 0;
+      }
+      .moodle-block-header {
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid var(--border);
+        font-size: 0.6rem;
+        letter-spacing: 0.15em;
+        color: var(--accent);
+        text-transform: uppercase;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .moodle-activity {
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      .moodle-activity:last-child {
+        border-bottom: none;
+      }
+      .activity-status {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.65rem;
+        flex-shrink: 0;
+      }
+      .activity-status.done {
+        background: var(--green-lt);
+        border: 1px solid var(--green);
+        color: var(--green);
+      }
+      .activity-status.pending {
+        background: var(--surface3);
+        border: 1px solid var(--border);
+        color: var(--muted2);
+      }
+      .activity-name {
+        font-size: 0.75rem;
+        color: var(--text);
+        flex: 1;
+      }
+      .activity-grade {
+        font-size: 0.7rem;
+        color: var(--accent);
+        font-weight: 500;
+      }
 
       /* SCORES DÉFI */
-      .defi-scores { background:var(--surface3); border-top:1px solid var(--border); padding:0.75rem 1rem; display:grid; grid-template-columns:repeat(3,1fr); gap:0.5rem; }
-      .defi-score-item { display:flex; flex-direction:column; gap:0.15rem; }
-      .defi-score-lbl { font-size:0.5rem; letter-spacing:0.12em; color:var(--muted2); text-transform:uppercase; }
-      .defi-score-val { font-family:var(--sans); font-size:1.1rem; font-weight:800; }
-      .defi-score-badge { font-size:0.65rem; color:var(--muted); }
+      .defi-scores {
+        background: var(--surface3);
+        border-top: 1px solid var(--border);
+        padding: 0.75rem 1rem;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
+      }
+      .defi-score-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.15rem;
+      }
+      .defi-score-lbl {
+        font-size: 0.5rem;
+        letter-spacing: 0.12em;
+        color: var(--muted2);
+        text-transform: uppercase;
+      }
+      .defi-score-val {
+        font-family: var(--sans);
+        font-size: 1.1rem;
+        font-weight: 800;
+      }
+      .defi-score-badge {
+        font-size: 0.65rem;
+        color: var(--muted);
+      }
 
       /* MISC */
-      .validated-msg { margin-top:0.75rem; padding:0.6rem 0.875rem; background:var(--green-lt); border:1px solid var(--green); border-radius:4px; font-size:0.7rem; color:var(--green); font-weight:500; }
-      .locked-msg { margin-top:0.75rem; padding:0.6rem 0.875rem; background:var(--locked-bg); border:1px solid var(--border); border-radius:4px; font-size:0.7rem; color:var(--muted2); }
-      .reset-zone { text-align:center; margin-top:3rem; }
-      .reset-btn { font-family:var(--mono); font-size:0.6rem; letter-spacing:0.1em; color:var(--muted2); background:none; border:none; cursor:pointer; text-decoration:underline; text-underline-offset:3px; text-transform:uppercase; transition:color 0.15s; }
-      .reset-btn:hover { color:var(--red); }
-      @keyframes fadeSlide { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
-      @keyframes glow-pulse { 0%,100%{text-shadow:0 0 8px var(--accent-glow)} 50%{text-shadow:0 0 20px var(--accent-glow),0 0 40px var(--accent-lt)} }
-      .glow { animation:glow-pulse 3s ease infinite; }
-      @media(max-width:600px){.hud{grid-template-columns:repeat(2,1fr)}.videos-grid{grid-template-columns:1fr}.header-title{font-size:1.3rem}.defi-scores{grid-template-columns:1fr 1fr}}
+      .validated-msg {
+        margin-top: 0.75rem;
+        padding: 0.6rem 0.875rem;
+        background: var(--green-lt);
+        border: 1px solid var(--green);
+        border-radius: 4px;
+        font-size: 0.7rem;
+        color: var(--green);
+        font-weight: 500;
+      }
+      .locked-msg {
+        margin-top: 0.75rem;
+        padding: 0.6rem 0.875rem;
+        background: var(--locked-bg);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        font-size: 0.7rem;
+        color: var(--muted2);
+      }
+      .reset-zone {
+        text-align: center;
+        margin-top: 3rem;
+      }
+      .reset-btn {
+        font-family: var(--mono);
+        font-size: 0.6rem;
+        letter-spacing: 0.1em;
+        color: var(--muted2);
+        background: none;
+        border: none;
+        cursor: pointer;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        text-transform: uppercase;
+        transition: color 0.15s;
+      }
+      .reset-btn:hover {
+        color: var(--red);
+      }
+      @keyframes fadeSlide {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes glow-pulse {
+        0%,
+        100% {
+          text-shadow: 0 0 8px var(--accent-glow);
+        }
+        50% {
+          text-shadow:
+            0 0 20px var(--accent-glow),
+            0 0 40px var(--accent-lt);
+        }
+      }
+      .glow {
+        animation: glow-pulse 3s ease infinite;
+      }
+      @media (max-width: 600px) {
+        .hud {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .videos-grid {
+          grid-template-columns: 1fr;
+        }
+        .header-title {
+          font-size: 1.3rem;
+        }
+        .defi-scores {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
     </style>
   </head>
   <body>
-
     <!-- CONNEXION -->
     <div id="setup-screen">
       <div class="setup-card">
         <div class="setup-logo">PARCOURS <span>IA</span></div>
         <div class="setup-sub">EAFC Charlemagne · Connexion Moodle</div>
         <label class="setup-label" for="inp-userid">Ton ID Moodle</label>
-        <input class="setup-input" type="number" id="inp-userid" placeholder="400004" autocomplete="off" />
+        <input
+          class="setup-input"
+          type="number"
+          id="inp-userid"
+          placeholder="400004"
+          autocomplete="off"
+        />
         <label class="setup-label" for="inp-token">Token Moodle</label>
-        <input class="setup-input" type="password" id="inp-token" placeholder="Colle ton token ici…" autocomplete="off" />
+        <input
+          class="setup-input"
+          type="password"
+          id="inp-token"
+          placeholder="Colle ton token ici…"
+          autocomplete="off"
+        />
         <div class="setup-hint">
-          <strong>ID Moodle</strong> — clique sur ton nom en haut à droite de Moodle.<br />
-          L'URL contient <code>…/user/profile.php?id=XXXX</code> — XXXX est ton ID.<br /><br />
-          <strong>Token</strong> — <strong>Mes préférences → Sécurité → Clés de service</strong><br />
-          → Copie la clé du service <code>Moodle mobile web service</code><br /><br />
+          <strong>ID Moodle</strong> — clique sur ton nom en haut à droite de
+          Moodle.<br />
+          L'URL contient <code>…/user/profile.php?id=XXXX</code> — XXXX est ton
+          ID.<br /><br />
+          <strong>Token</strong> —
+          <strong>Mes préférences → Sécurité → Clés de service</strong><br />
+          → Copie la clé du service <code>Moodle mobile web service</code
+          ><br /><br />
           Ces informations sont sauvegardées localement dans ton navigateur.
         </div>
-        <button class="btn-connect" id="btn-connect" onclick="connectMoodle()">Connecter →</button>
-        <div class="setup-loading" id="setup-loading"><div class="spinner"></div><span>Vérification…</span></div>
+        <button class="btn-connect" id="btn-connect" onclick="connectMoodle()">
+          Connecter →
+        </button>
+        <div class="setup-loading" id="setup-loading">
+          <div class="spinner"></div>
+          <span>Vérification…</span>
+        </div>
         <div class="setup-err" id="setup-err"></div>
       </div>
     </div>
 
     <!-- DASHBOARD -->
-    <div id="dashboard" style="display:none">
+    <div id="dashboard" style="display: none">
       <div class="page">
         <header>
           <div class="header-brand">
-            <span class="header-label">EAFC Charlemagne · UE Intelligence Artificielle</span>
+            <span class="header-label"
+              >EAFC Charlemagne · UE Intelligence Artificielle</span
+            >
             <h1 class="header-title">PARCOURS <span class="glow">IA</span></h1>
-            <p class="header-sub">Escape game pédagogique · 5 salles · Débloquer pour progresser</p>
+            <p class="header-sub">
+              Escape game pédagogique · 5 salles · Débloquer pour progresser
+            </p>
           </div>
           <div class="identity-connected">
             <div class="identity-dot"></div>
             <div class="identity-info">
               <div class="identity-name" id="display-name">—</div>
-              <div class="identity-meta" id="display-meta">Connecté·e à Moodle</div>
+              <div class="identity-meta" id="display-meta">
+                Connecté·e à Moodle
+              </div>
             </div>
-            <button class="btn-disconnect" onclick="disconnect()">Déconnecter</button>
+            <button class="btn-disconnect" onclick="disconnect()">
+              Déconnecter
+            </button>
           </div>
         </header>
 
@@ -210,11 +903,11 @@
           </div>
           <div class="hud-cell" id="hud-eco">
             <div class="hud-label">Éco moyen</div>
-            <div class="hud-val" id="recap-eco" style="font-size:1rem">—</div>
+            <div class="hud-val" id="recap-eco" style="font-size: 1rem">—</div>
           </div>
           <div class="hud-cell" id="hud-dep">
             <div class="hud-label">Dépendance IA</div>
-            <div class="hud-val" id="recap-dep" style="font-size:1rem">—</div>
+            <div class="hud-val" id="recap-dep" style="font-size: 1rem">—</div>
           </div>
         </div>
 
@@ -223,447 +916,578 @@
             <span class="xp-label">Progression globale</span>
             <span class="xp-pct" id="xp-pct">0 XP</span>
           </div>
-          <div class="xp-track"><div class="xp-fill" id="xp-fill" style="width:0%"></div></div>
+          <div class="xp-track">
+            <div class="xp-fill" id="xp-fill" style="width: 0%"></div>
+          </div>
         </div>
 
         <div class="sync-bar">
           <div class="sync-dot" id="sync-dot"></div>
           <span id="sync-msg">Synchronisation…</span>
-          <button class="btn-refresh" onclick="loadMoodleData()">↺ Actualiser</button>
+          <button class="btn-refresh" onclick="loadMoodleData()">
+            ↺ Actualiser
+          </button>
         </div>
 
         <div class="salles" id="salles-container"></div>
-        <div class="reset-zone"><button class="reset-btn" onclick="disconnect()">↺ Changer de compte</button></div>
+        <div class="reset-zone">
+          <button class="reset-btn" onclick="disconnect()">
+            ↺ Changer de compte
+          </button>
+        </div>
       </div>
     </div>
 
     <script>
-    // ══════════════════════════════
-    // CONFIG — chargée depuis config.json
-    // ══════════════════════════════
-    const STORAGE_KEY = 'parcours_ia_moodle_v2';
-    let MOODLE_URL  = '';
-    let COURSE_ID   = 0;
-    let SALLES_DEF  = [];
+      // ══════════════════════════════
+      // CONFIG — chargée depuis config.json
+      // ══════════════════════════════
+      const STORAGE_KEY = "parcours_ia_moodle_v2";
+      let MOODLE_URL = "";
+      let COURSE_ID = 0;
+      let SALLES_DEF = [];
 
-    async function loadConfig(){
-      try{
-        const res = await fetch('./config.json?_=' + Date.now());
-        if(!res.ok) throw new Error('config.json introuvable');
-        const cfg = await res.json();
-        MOODLE_URL = cfg.moodle_url;
-        COURSE_ID  = cfg.course_id;
-        SALLES_DEF = cfg.salles;
-      }catch(e){
-        document.body.innerHTML = `<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;font-family:monospace;color:#ff4466;background:#111827;padding:2rem;text-align:center;">
+      async function loadConfig() {
+        try {
+          const res = await fetch("./config.json?_=" + Date.now());
+          if (!res.ok) throw new Error("config.json introuvable");
+          const cfg = await res.json();
+          MOODLE_URL = cfg.moodle_url;
+          COURSE_ID = cfg.course_id;
+          SALLES_DEF = cfg.salles;
+        } catch (e) {
+          document.body.innerHTML = `<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;font-family:monospace;color:#ff4466;background:#111827;padding:2rem;text-align:center;">
           <div>
             <div style="font-size:2rem;margin-bottom:1rem;">⚠️</div>
             <div style="font-size:1rem;margin-bottom:0.5rem;">Impossible de charger config.json</div>
             <div style="font-size:0.75rem;color:#7388ab;">${e.message}</div>
           </div>
         </div>`;
-        throw e;
-      }
-    }
-
-    // ══════════════════════════════
-    // LABELS
-    // ══════════════════════════════
-    function ecoLabel(s) {
-      if (s>=17) return {badge:'🌿',txt:'Chirurgical',color:'var(--green)'};
-      if (s>=12) return {badge:'⚡',txt:'Raisonnable',color:'#60a5fa'};
-      if (s>=6)  return {badge:'🔥',txt:'Énergivore', color:'var(--gold)'};
-      return {badge:'☢️',txt:'Catastrophe',color:'var(--red)'};
-    }
-    function depLabel(p) {
-      if (p<=20) return {badge:'🧠',txt:'Autonome',   color:'var(--green)'};
-      if (p<=40) return {badge:'✅',txt:'Correct',    color:'#60a5fa'};
-      if (p<=60) return {badge:'🩼',txt:'Béquille',   color:'var(--gold)'};
-      if (p<=80) return {badge:'🤖',txt:'Dépendant·e',color:'#fb923c'};
-      return {badge:'💀',txt:'IA pilote',color:'var(--red)'};
-    }
-
-    // ══════════════════════════════
-    // SALLES
-    // ══════════════════════════════
-    // SALLES_DEF chargé depuis config.json via loadConfig()
-
-    // ══════════════════════════════
-    // STATE
-    // ══════════════════════════════
-    let token=null, moodleUser=null;
-    let moodleData={completions:[],grades:[],badges:[],feedbacks:{}};
-
-    function loadState(){const s=localStorage.getItem(STORAGE_KEY);return s?JSON.parse(s):{};}
-    function saveState(obj){localStorage.setItem(STORAGE_KEY,JSON.stringify(obj));}
-
-    // ══════════════════════════════
-    // API
-    // ══════════════════════════════
-    async function moodleCall(fn,params={}){
-      const url=new URL(`${MOODLE_URL}/webservice/rest/server.php`);
-      url.searchParams.set('wstoken',token);
-      url.searchParams.set('wsfunction',fn);
-      url.searchParams.set('moodlewsrestformat','json');
-      for(const[k,v]of Object.entries(params))url.searchParams.set(k,v);
-      const res=await fetch(url.toString());
-      if(!res.ok)throw new Error(`HTTP ${res.status}`);
-      const data=await res.json();
-      if(data?.exception)throw new Error(data.message||data.exception);
-      return data;
-    }
-
-    function parseFeedback(html){
-      if(!html)return{eco:null,dep:null};
-      const eco=html.match(/ECO:(\d+)/)?.[1];
-      const dep=html.match(/DEP:(\d+)/)?.[1];
-      return{
-        eco:eco!==undefined?parseInt(eco):null,
-        dep:dep!==undefined?parseInt(dep):null,
-      };
-    }
-
-    // ══════════════════════════════
-    // CONNEXION
-    // ══════════════════════════════
-    async function connectMoodle(){
-      const t  =document.getElementById('inp-token').value.trim();
-      const uid=parseInt(document.getElementById('inp-userid').value.trim());
-      if(!t)        {showSetupErr('Entre ton token Moodle.');return;}
-      if(!uid||isNaN(uid)){showSetupErr(`Entre ton ID Moodle — le nombre dans l'URL de ton profil.`);return;}
-      setSetupLoading(true);
-      token=t;
-      try{
-        // Validation token + récupération nom via gradereport avec l'ID fourni
-        const gr=await moodleCall('gradereport_user_get_grade_items',{
-          courseid:COURSE_ID, userid:uid
-        });
-        const fullname=gr?.usergrades?.[0]?.userfullname||'Étudiant·e';
-        moodleUser={id:uid, fullname:fullname, username:''};
-        saveState({token:t, user:moodleUser});
-        setSetupLoading(false);
-        showDashboard();
-        loadMoodleData();
-      }catch(e){
-        setSetupLoading(false);
-        showSetupErr(`Connexion impossible — vérifie ton ID et ton token.<br><small>${e.message}</small>`);
-        token=null;
-      }
-    }
-
-    function setSetupLoading(on){
-      document.getElementById('setup-loading').classList.toggle('show',on);
-      document.getElementById('btn-connect').disabled=on;
-      document.getElementById('setup-err').classList.remove('show');
-    }
-    function showSetupErr(msg){const el=document.getElementById('setup-err');el.innerHTML=msg;el.classList.add('show');}
-
-    function showDashboard(){
-      document.getElementById('setup-screen').style.display='none';
-      document.getElementById('dashboard').style.display='block';
-      document.getElementById('display-name').textContent=moodleUser.fullname;
-      document.getElementById('display-meta').textContent=(moodleUser.username?'@'+moodleUser.username+' · ':'')+'Moodle connecté';
-    }
-
-    function disconnect(){
-      localStorage.removeItem(STORAGE_KEY);
-      token=null;moodleUser=null;
-      moodleData={completions:[],grades:[],badges:[],feedbacks:{}};
-      document.getElementById('setup-screen').style.display='flex';
-      document.getElementById('dashboard').style.display='none';
-      document.getElementById('inp-token').value='';
-      document.getElementById('inp-userid').value='';
-    }
-
-    // ══════════════════════════════
-    // CHARGEMENT
-    // ══════════════════════════════
-    async function loadMoodleData(){
-      setSyncStatus('loading','Synchronisation avec Moodle…');
-      try{
-        let completions=[];
-        try{
-          const comp=await moodleCall('core_completion_get_activities_completion_status',{courseid:COURSE_ID,userid:moodleUser.id});
-          completions=comp.statuses||[];
-        }catch(e){console.warn('Complétion:',e.message);}
-
-        let grades=[];
-        try{
-          const gr=await moodleCall('gradereport_user_get_grade_items',{courseid:COURSE_ID,userid:moodleUser.id});
-          grades=gr.usergrades?.[0]?.gradeitems||[];
-        }catch(e){console.warn('Notes:',e.message);}
-
-        let badges=[];
-        try{
-          const bg=await moodleCall('core_badges_get_user_badges',{userid:moodleUser.id,courseid:COURSE_ID});
-          badges=bg.badges||[];
-        }catch(e){console.warn('Badges:',e.message);}
-
-        // Feedbacks ECO+DEP via mod_assign_get_submission_status
-        const feedbacks={};
-        for(const salle of SALLES_DEF){
-          if(!salle.assign_ids?.length)continue;
-          for(const a of salle.assign_ids){
-            try{
-              const sub=await moodleCall('mod_assign_get_submission_status',{assignid:a.assignid});
-              const fbPlugins=sub?.feedback?.plugins||[];
-              const cp=fbPlugins.find(p=>p.type==='comments');
-              const raw=cp?.editorfields?.[0]?.text||'';
-              const parsed=parseFeedback(raw);
-              feedbacks[a.assignid]={
-                ...parsed,
-                grade:sub?.feedback?.grade?.grade!=null?parseFloat(sub.feedback.grade.grade):null,
-                graded:!!sub?.lastattempt?.graded,
-                submitted:sub?.lastattempt?.submission?.status==='submitted',
-                label:a.label,
-              };
-            }catch(e){console.warn(`Feedback ${a.assignid}:`,e.message);}
-          }
+          throw e;
         }
-
-        moodleData={completions,grades,badges,feedbacks};
-        setSyncStatus('ok',`Synchronisé — ${new Date().toLocaleTimeString('fr-BE')}`);
-        buildSalles();
-        updateHUD();
-      }catch(e){
-        setSyncStatus('err',`Erreur : ${e.message}`);
       }
-    }
 
-    function setSyncStatus(type,msg){
-      document.getElementById('sync-dot').className='sync-dot '+type;
-      document.getElementById('sync-msg').textContent=msg;
-    }
-
-    // ══════════════════════════════
-    // HELPERS
-    // ══════════════════════════════
-    function isActivityCompleted(cmid){
-      const s=moodleData.completions.find(c=>c.cmid===cmid);
-      return s?s.state===1:false;
-    }
-
-    function isSalleUnlocked(salleId){
-      if(salleId===1)return true;
-      const prev=SALLES_DEF.find(s=>s.id===salleId-1);
-      if(!prev)return false;
-      // Mode dev : pas encore configuré → ouvert
-      if(!prev.activity_ids?.length&&!prev.assign_ids?.length)return true;
-      // Basé sur les notes des devoirs
-      if(prev.assign_ids?.length){
-        const thr=prev.unlock_grade_threshold||60;
-        return prev.assign_ids.every(a=>{
-          const fb=moodleData.feedbacks[a.assignid];
-          return fb?.grade!=null&&fb.grade>=thr;
-        });
+      // ══════════════════════════════
+      // LABELS
+      // ══════════════════════════════
+      function ecoLabel(s) {
+        if (s >= 17)
+          return { badge: "🌿", txt: "Chirurgical", color: "var(--green)" };
+        if (s >= 12)
+          return { badge: "⚡", txt: "Raisonnable", color: "#60a5fa" };
+        if (s >= 6)
+          return { badge: "🔥", txt: "Énergivore", color: "var(--gold)" };
+        return { badge: "☢️", txt: "Catastrophe", color: "var(--red)" };
       }
-      return prev.activity_ids.every(id=>isActivityCompleted(id));
-    }
+      function depLabel(p) {
+        if (p <= 20)
+          return { badge: "🧠", txt: "Autonome", color: "var(--green)" };
+        if (p <= 40) return { badge: "✅", txt: "Correct", color: "#60a5fa" };
+        if (p <= 60)
+          return { badge: "🩼", txt: "Béquille", color: "var(--gold)" };
+        if (p <= 80)
+          return { badge: "🤖", txt: "Dépendant·e", color: "#fb923c" };
+        return { badge: "💀", txt: "IA pilote", color: "var(--red)" };
+      }
 
-    // ══════════════════════════════
-    // RENDER
-    // ══════════════════════════════
-    function buildSalles(){
-      const container=document.getElementById('salles-container');
-      container.innerHTML='';
-      SALLES_DEF.forEach(def=>{
-        const accessible=def.always_open||isSalleUnlocked(def.id);
-        const totalActs=def.activity_ids?.length||0;
-        const doneActs=def.activity_ids?.filter(id=>isActivityCompleted(id)).length||0;
-        const salleComplete=totalActs>0&&doneActs===totalActs;
+      // ══════════════════════════════
+      // SALLES
+      // ══════════════════════════════
+      // SALLES_DEF chargé depuis config.json via loadConfig()
 
-        const el=document.createElement('div');
-        el.className='salle'+(salleComplete?' unlocked':accessible?' active-salle':' locked-salle');
+      // ══════════════════════════════
+      // STATE
+      // ══════════════════════════════
+      let token = null,
+        moodleUser = null;
+      let moodleData = {
+        completions: [],
+        grades: [],
+        badges: [],
+        feedbacks: {},
+      };
 
-        const badgeTxt=salleComplete?'✓ complétée':accessible?'● en cours':'🔒 verrouillée';
-        const badgeCls=salleComplete?'badge-done':accessible?'badge-open':'badge-locked';
+      function loadState() {
+        const s = localStorage.getItem(STORAGE_KEY);
+        return s ? JSON.parse(s) : {};
+      }
+      function saveState(obj) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(obj));
+      }
 
-        el.innerHTML=`
-          <div class="salle-header" ${accessible?`onclick="toggleSalle(${def.id})"`:''}>
+      // ══════════════════════════════
+      // API
+      // ══════════════════════════════
+      async function moodleCall(fn, params = {}) {
+        const url = new URL(`${MOODLE_URL}/webservice/rest/server.php`);
+        url.searchParams.set("wstoken", token);
+        url.searchParams.set("wsfunction", fn);
+        url.searchParams.set("moodlewsrestformat", "json");
+        for (const [k, v] of Object.entries(params)) url.searchParams.set(k, v);
+        const res = await fetch(url.toString());
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        if (data?.exception) throw new Error(data.message || data.exception);
+        return data;
+      }
+
+      function parseFeedback(html) {
+        if (!html) return { eco: null, dep: null };
+        const eco = html.match(/ECO:(\d+)/)?.[1];
+        const dep = html.match(/DEP:(\d+)/)?.[1];
+        return {
+          eco: eco !== undefined ? parseInt(eco) : null,
+          dep: dep !== undefined ? parseInt(dep) : null,
+        };
+      }
+
+      // ══════════════════════════════
+      // CONNEXION
+      // ══════════════════════════════
+      async function connectMoodle() {
+        const t = document.getElementById("inp-token").value.trim();
+        const uid = parseInt(
+          document.getElementById("inp-userid").value.trim(),
+        );
+        if (!t) {
+          showSetupErr("Entre ton token Moodle.");
+          return;
+        }
+        if (!uid || isNaN(uid)) {
+          showSetupErr(
+            `Entre ton ID Moodle — le nombre dans l'URL de ton profil.`,
+          );
+          return;
+        }
+        setSetupLoading(true);
+        token = t;
+        try {
+          // Validation token + récupération nom via gradereport avec l'ID fourni
+          const gr = await moodleCall("gradereport_user_get_grade_items", {
+            courseid: COURSE_ID,
+            userid: uid,
+          });
+          const fullname = gr?.usergrades?.[0]?.userfullname || "Étudiant·e";
+          moodleUser = { id: uid, fullname: fullname, username: "" };
+          saveState({ token: t, user: moodleUser });
+          setSetupLoading(false);
+          showDashboard();
+          loadMoodleData();
+        } catch (e) {
+          setSetupLoading(false);
+          showSetupErr(
+            `Connexion impossible — vérifie ton ID et ton token.<br><small>${e.message}</small>`,
+          );
+          token = null;
+        }
+      }
+
+      function setSetupLoading(on) {
+        document.getElementById("setup-loading").classList.toggle("show", on);
+        document.getElementById("btn-connect").disabled = on;
+        document.getElementById("setup-err").classList.remove("show");
+      }
+      function showSetupErr(msg) {
+        const el = document.getElementById("setup-err");
+        el.innerHTML = msg;
+        el.classList.add("show");
+      }
+
+      function showDashboard() {
+        document.getElementById("setup-screen").style.display = "none";
+        document.getElementById("dashboard").style.display = "block";
+        document.getElementById("display-name").textContent =
+          moodleUser.fullname;
+        document.getElementById("display-meta").textContent =
+          (moodleUser.username ? "@" + moodleUser.username + " · " : "") +
+          "Moodle connecté";
+      }
+
+      function disconnect() {
+        localStorage.removeItem(STORAGE_KEY);
+        token = null;
+        moodleUser = null;
+        moodleData = { completions: [], grades: [], badges: [], feedbacks: {} };
+        document.getElementById("setup-screen").style.display = "flex";
+        document.getElementById("dashboard").style.display = "none";
+        document.getElementById("inp-token").value = "";
+        document.getElementById("inp-userid").value = "";
+      }
+
+      // ══════════════════════════════
+      // CHARGEMENT
+      // ══════════════════════════════
+      async function loadMoodleData() {
+        setSyncStatus("loading", "Synchronisation avec Moodle…");
+        try {
+          let completions = [];
+          try {
+            const comp = await moodleCall(
+              "core_completion_get_activities_completion_status",
+              { courseid: COURSE_ID, userid: moodleUser.id },
+            );
+            completions = comp.statuses || [];
+          } catch (e) {
+            console.warn("Complétion:", e.message);
+          }
+
+          let grades = [];
+          try {
+            const gr = await moodleCall("gradereport_user_get_grade_items", {
+              courseid: COURSE_ID,
+              userid: moodleUser.id,
+            });
+            grades = gr.usergrades?.[0]?.gradeitems || [];
+          } catch (e) {
+            console.warn("Notes:", e.message);
+          }
+
+          let badges = [];
+          try {
+            const bg = await moodleCall("core_badges_get_user_badges", {
+              userid: moodleUser.id,
+              courseid: COURSE_ID,
+            });
+            badges = bg.badges || [];
+          } catch (e) {
+            console.warn("Badges:", e.message);
+          }
+
+          // Feedbacks ECO+DEP via mod_assign_get_submission_status
+          const feedbacks = {};
+          for (const salle of SALLES_DEF) {
+            if (!salle.assign_ids?.length) continue;
+            for (const a of salle.assign_ids) {
+              try {
+                const sub = await moodleCall(
+                  "mod_assign_get_submission_status",
+                  { assignid: a.assignid },
+                );
+                const fbPlugins = sub?.feedback?.plugins || [];
+                const cp = fbPlugins.find((p) => p.type === "comments");
+                const raw = cp?.editorfields?.[0]?.text || "";
+                const parsed = parseFeedback(raw);
+                feedbacks[a.assignid] = {
+                  ...parsed,
+                  grade:
+                    sub?.feedback?.grade?.grade != null
+                      ? parseFloat(sub.feedback.grade.grade)
+                      : null,
+                  graded: !!sub?.lastattempt?.graded,
+                  submitted:
+                    sub?.lastattempt?.submission?.status === "submitted",
+                  label: a.label,
+                };
+              } catch (e) {
+                console.warn(`Feedback ${a.assignid}:`, e.message);
+              }
+            }
+          }
+
+          moodleData = { completions, grades, badges, feedbacks };
+          setSyncStatus(
+            "ok",
+            `Synchronisé — ${new Date().toLocaleTimeString("fr-BE")}`,
+          );
+          buildSalles();
+          updateHUD();
+        } catch (e) {
+          setSyncStatus("err", `Erreur : ${e.message}`);
+        }
+      }
+
+      function setSyncStatus(type, msg) {
+        document.getElementById("sync-dot").className = "sync-dot " + type;
+        document.getElementById("sync-msg").textContent = msg;
+      }
+
+      // ══════════════════════════════
+      // HELPERS
+      // ══════════════════════════════
+      function isActivityCompleted(cmid) {
+        const s = moodleData.completions.find((c) => c.cmid === cmid);
+        return s ? s.state === 1 : false;
+      }
+
+      function isSalleUnlocked(salleId) {
+        if (salleId === 1) return true;
+        const prev = SALLES_DEF.find((s) => s.id === salleId - 1);
+        if (!prev) return false;
+        // Mode dev : pas encore configuré → ouvert
+        if (!prev.activity_ids?.length && !prev.assign_ids?.length) return true;
+        // Basé sur les notes des devoirs
+        if (prev.assign_ids?.length) {
+          const thr = prev.unlock_grade_threshold || 60;
+          return prev.assign_ids.every((a) => {
+            const fb = moodleData.feedbacks[a.assignid];
+            return fb?.grade != null && fb.grade >= thr;
+          });
+        }
+        return prev.activity_ids.every((id) => isActivityCompleted(id));
+      }
+
+      // ══════════════════════════════
+      // RENDER
+      // ══════════════════════════════
+      function buildSalles() {
+        const container = document.getElementById("salles-container");
+        container.innerHTML = "";
+        SALLES_DEF.forEach((def) => {
+          const accessible = def.always_open || isSalleUnlocked(def.id);
+          const totalActs = def.activity_ids?.length || 0;
+          const doneActs =
+            def.activity_ids?.filter((id) => isActivityCompleted(id)).length ||
+            0;
+          const salleComplete = totalActs > 0 && doneActs === totalActs;
+
+          const el = document.createElement("div");
+          el.className =
+            "salle" +
+            (salleComplete
+              ? " unlocked"
+              : accessible
+                ? " active-salle"
+                : " locked-salle");
+
+          const badgeTxt = salleComplete
+            ? "✓ complétée"
+            : accessible
+              ? "● en cours"
+              : "🔒 verrouillée";
+          const badgeCls = salleComplete
+            ? "badge-done"
+            : accessible
+              ? "badge-open"
+              : "badge-locked";
+
+          el.innerHTML = `
+          <div class="salle-header" ${accessible ? `onclick="toggleSalle(${def.id})"` : ""}>
             <span class="salle-icon">${def.icon}</span>
             <span class="salle-num">SALLE 0${def.id}</span>
             <span class="salle-title">${def.titre}</span>
-            ${totalActs>0?`<span style="font-size:0.6rem;color:var(--muted);margin-right:0.5rem;">${doneActs}/${totalActs}</span>`:''}
+            ${totalActs > 0 ? `<span style="font-size:0.6rem;color:var(--muted);margin-right:0.5rem;">${doneActs}/${totalActs}</span>` : ""}
             <span class="salle-badge ${badgeCls}">${badgeTxt}</span>
-            <span class="salle-chevron">${accessible?'▾':''}</span>
+            <span class="salle-chevron">${accessible ? "▾" : ""}</span>
           </div>
-          <div class="salle-body">${renderBody(def,accessible,salleComplete,doneActs,totalActs)}</div>`;
-        container.appendChild(el);
-      });
-    }
+          <div class="salle-body">${renderBody(def, accessible, salleComplete, doneActs, totalActs)}</div>`;
+          container.appendChild(el);
+        });
+      }
 
-    function renderBody(def,accessible,salleComplete,doneActs,totalActs){
-      if(!accessible)return`<div class="locked-msg">🔒 Cette salle se déverrouille quand tu complètes la mission précédente dans Moodle.</div>`;
+      function renderBody(def, accessible, salleComplete, doneActs, totalActs) {
+        if (!accessible)
+          return `<div class="locked-msg">🔒 Cette salle se déverrouille quand tu complètes la mission précédente dans Moodle.</div>`;
 
-      let h=`<p class="salle-desc">${def.desc}</p>
+        let h = `<p class="salle-desc">${def.desc}</p>
         <div class="mission-label">// consigne</div>
         <p class="salle-desc" style="font-style:italic;">${def.consigne}</p>
         <div class="mission-label">// livrables</div>
-        <ul class="livrables">${def.livrables.map(l=>`<li>${l}</li>`).join('')}</ul>`;
+        <ul class="livrables">${def.livrables.map((l) => `<li>${l}</li>`).join("")}</ul>`;
 
-      // Vidéos
-      if(def.videos?.length){
-        h+=`<div class="mission-label">// démonstrations</div><div class="videos-grid">`;
-        for(const v of def.videos){
-          h+=`<div class="video-card">${v.yt
-            ?`<iframe class="video-embed" src="https://www.youtube.com/embed/${v.yt}" frameborder="0" allowfullscreen></iframe>`
-            :`<div class="video-placeholder"><span>▶</span><span style="font-size:0.6rem">DÉFI ${v.id} — bientôt disponible</span></div>`}
+        // Vidéos
+        if (def.videos?.length) {
+          h += `<div class="mission-label">// démonstrations</div><div class="videos-grid">`;
+          for (const v of def.videos) {
+            h += `<div class="video-card">${
+              v.yt
+                ? `<iframe class="video-embed" src="https://www.youtube.com/embed/${v.yt}" frameborder="0" allowfullscreen></iframe>`
+                : `<div class="video-placeholder"><span>▶</span><span style="font-size:0.6rem">DÉFI ${v.id} — bientôt disponible</span></div>`
+            }
             <div class="video-label">${v.label}</div></div>`;
+          }
+          h += `</div>`;
         }
-        h+=`</div>`;
-      }
 
-      // Défis avec scores feedback
-      if(def.assign_ids?.length){
-        h+=`<div class="mission-label">// tes défis</div><div class="moodle-block">
+        // Défis avec scores feedback
+        if (def.assign_ids?.length) {
+          h += `<div class="mission-label">// tes défis</div><div class="moodle-block">
           <div class="moodle-block-header"><span>Remises & scores</span><span style="color:var(--muted)">${doneActs}/${totalActs}</span></div>`;
 
-        for(const a of def.assign_ids){
-          const done=isActivityCompleted(a.cmid);
-          const fb=moodleData.feedbacks[a.assignid]||{};
-          const grade=fb.grade!=null?Math.round(fb.grade):null;
-          const eco=fb.eco??null;
-          const dep=fb.dep??null;
-          const ecoL=eco!==null?ecoLabel(eco):null;
-          const depL=dep!==null?depLabel(dep):null;
+          for (const a of def.assign_ids) {
+            const done = isActivityCompleted(a.cmid);
+            const fb = moodleData.feedbacks[a.assignid] || {};
+            const grade = fb.grade != null ? Math.round(fb.grade) : null;
+            const eco = fb.eco ?? null;
+            const dep = fb.dep ?? null;
+            const ecoL = eco !== null ? ecoLabel(eco) : null;
+            const depL = dep !== null ? depLabel(dep) : null;
 
-          h+=`<div style="border-bottom:1px solid var(--border);">
+            h += `<div style="border-bottom:1px solid var(--border);">
             <div class="moodle-activity">
-              <div class="activity-status ${done?'done':'pending'}">${done?'✓':'○'}</div>
+              <div class="activity-status ${done ? "done" : "pending"}">${done ? "✓" : "○"}</div>
               <div class="activity-name">${a.label}</div>
-              <div class="activity-grade">${grade!==null?grade+'/100':''}</div>
+              <div class="activity-grade">${grade !== null ? grade + "/100" : ""}</div>
             </div>`;
 
-          if(grade!==null){
-            h+=`<div class="defi-scores">
+            if (grade !== null) {
+              h += `<div class="defi-scores">
               <div class="defi-score-item">
                 <div class="defi-score-lbl">Score</div>
-                <div class="defi-score-val" style="color:${grade>=60?'var(--green)':'var(--red)'}">${grade}/100</div>
-                <div class="defi-score-badge">${grade>=60?'✓ Validé':'✗ Insuffisant'}</div>
+                <div class="defi-score-val" style="color:${grade >= 60 ? "var(--green)" : "var(--red)"}">${grade}/100</div>
+                <div class="defi-score-badge">${grade >= 60 ? "✓ Validé" : "✗ Insuffisant"}</div>
               </div>
               <div class="defi-score-item">
                 <div class="defi-score-lbl">Éco</div>
-                <div class="defi-score-val" style="color:${ecoL?ecoL.color:'var(--muted)'}">${eco!==null?eco+'/20':'—'}</div>
-                <div class="defi-score-badge">${ecoL?ecoL.badge+' '+ecoL.txt:'En attente'}</div>
+                <div class="defi-score-val" style="color:${ecoL ? ecoL.color : "var(--muted)"}">${eco !== null ? eco + "/20" : "—"}</div>
+                <div class="defi-score-badge">${ecoL ? ecoL.badge + " " + ecoL.txt : "En attente"}</div>
               </div>
               <div class="defi-score-item">
                 <div class="defi-score-lbl">Dépendance IA</div>
-                <div class="defi-score-val" style="color:${depL?depL.color:'var(--muted)'}">${dep!==null?dep+'%':'—'}</div>
-                <div class="defi-score-badge">${depL?depL.badge+' '+depL.txt:'En attente'}</div>
+                <div class="defi-score-val" style="color:${depL ? depL.color : "var(--muted)"}">${dep !== null ? dep + "%" : "—"}</div>
+                <div class="defi-score-badge">${depL ? depL.badge + " " + depL.txt : "En attente"}</div>
               </div>
             </div>`;
-          }else if(done){
-            h+=`<div style="font-size:0.65rem;color:var(--muted2);padding:0.4rem 1rem;font-style:italic;">Remis · en attente de correction</div>`;
-          }else{
-            h+=`<div style="font-size:0.65rem;color:var(--muted2);padding:0.4rem 1rem;font-style:italic;">Pas encore remis</div>`;
+            } else if (done) {
+              h += `<div style="font-size:0.65rem;color:var(--muted2);padding:0.4rem 1rem;font-style:italic;">Remis · en attente de correction</div>`;
+            } else {
+              h += `<div style="font-size:0.65rem;color:var(--muted2);padding:0.4rem 1rem;font-style:italic;">Pas encore remis</div>`;
+            }
+            h += `</div>`;
           }
-          h+=`</div>`;
-        }
-        h+=`</div>`;
-
-      }else if(def.activity_ids?.length){
-        h+=`<div class="mission-label">// activités Moodle</div><div class="moodle-block">
+          h += `</div>`;
+        } else if (def.activity_ids?.length) {
+          h += `<div class="mission-label">// activités Moodle</div><div class="moodle-block">
           <div class="moodle-block-header"><span>Complétion</span><span style="color:var(--muted)">${doneActs}/${totalActs}</span></div>`;
-        for(const id of def.activity_ids){
-          const done=isActivityCompleted(id);
-          const act=moodleData.completions.find(c=>c.cmid===id);
-          h+=`<div class="moodle-activity">
-            <div class="activity-status ${done?'done':'pending'}">${done?'✓':'○'}</div>
-            <div class="activity-name">${act?.cmname||'Activité #'+id}</div>
+          for (const id of def.activity_ids) {
+            const done = isActivityCompleted(id);
+            const act = moodleData.completions.find((c) => c.cmid === id);
+            h += `<div class="moodle-activity">
+            <div class="activity-status ${done ? "done" : "pending"}">${done ? "✓" : "○"}</div>
+            <div class="activity-name">${act?.cmname || "Activité #" + id}</div>
           </div>`;
+          }
+          h += `</div>`;
         }
-        h+=`</div>`;
-      }
 
-      // Badges
-      const salleBadges=moodleData.badges.filter(b=>b.name&&b.name.toLowerCase().includes(`salle ${def.id}`));
-      if(salleBadges.length){
-        h+=`<div class="mission-label">// badges</div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem;margin:1rem 0;">`;
-        for(const b of salleBadges){
-          h+=`<div style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:0.75rem;">
+        // Badges
+        const salleBadges = moodleData.badges.filter(
+          (b) => b.name && b.name.toLowerCase().includes(`salle ${def.id}`),
+        );
+        if (salleBadges.length) {
+          h += `<div class="mission-label">// badges</div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem;margin:1rem 0;">`;
+          for (const b of salleBadges) {
+            h += `<div style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:0.75rem;">
             <div style="font-size:1.3rem;">🏅</div>
             <div style="font-size:0.65rem;color:var(--muted);margin-top:0.25rem;">${b.name}</div>
           </div>`;
+          }
+          h += `</div>`;
         }
-        h+=`</div>`;
+
+        if (salleComplete)
+          h += `<div class="validated-msg">✓ Mission 0${def.id} complétée dans Moodle</div>`;
+        return h;
       }
 
-      if(salleComplete)h+=`<div class="validated-msg">✓ Mission 0${def.id} complétée dans Moodle</div>`;
-      return h;
-    }
+      function toggleSalle(id) {
+        document.querySelectorAll(".salle").forEach((el) => {
+          const h = el.querySelector(".salle-header");
+          if (h?.getAttribute("onclick") === `toggleSalle(${id})`)
+            el.classList.toggle("expanded");
+        });
+      }
 
-    function toggleSalle(id){
-      document.querySelectorAll('.salle').forEach(el=>{
-        const h=el.querySelector('.salle-header');
-        if(h?.getAttribute('onclick')===`toggleSalle(${id})`)el.classList.toggle('expanded');
-      });
-    }
+      // ══════════════════════════════
+      // HUD
+      // ══════════════════════════════
+      function updateHUD() {
+        const completedSalles = SALLES_DEF.filter((def) => {
+          const total = def.activity_ids?.length || 0;
+          const done =
+            def.activity_ids?.filter((id) => isActivityCompleted(id)).length ||
+            0;
+          return total > 0 && done === total;
+        }).length;
 
-    // ══════════════════════════════
-    // HUD
-    // ══════════════════════════════
-    function updateHUD(){
-      const completedSalles=SALLES_DEF.filter(def=>{
-        const total=def.activity_ids?.length||0;
-        const done=def.activity_ids?.filter(id=>isActivityCompleted(id)).length||0;
-        return total>0&&done===total;
-      }).length;
-
-      // Scores mission 1
-      const s1=SALLES_DEF.find(s=>s.id===1);
-      let totalScore=null,ecoArr=[],depArr=[];
-      if(s1?.assign_ids?.length){
-        let sum=0,count=0;
-        for(const a of s1.assign_ids){
-          const fb=moodleData.feedbacks[a.assignid]||{};
-          if(fb.grade!=null){sum+=fb.grade;count++;}
-          if(fb.eco!=null)ecoArr.push(fb.eco);
-          if(fb.dep!=null)depArr.push(fb.dep);
+        // Scores mission 1
+        const s1 = SALLES_DEF.find((s) => s.id === 1);
+        let totalScore = null,
+          ecoArr = [],
+          depArr = [];
+        if (s1?.assign_ids?.length) {
+          let sum = 0,
+            count = 0;
+          for (const a of s1.assign_ids) {
+            const fb = moodleData.feedbacks[a.assignid] || {};
+            if (fb.grade != null) {
+              sum += fb.grade;
+              count++;
+            }
+            if (fb.eco != null) ecoArr.push(fb.eco);
+            if (fb.dep != null) depArr.push(fb.dep);
+          }
+          if (count > 0) totalScore = Math.round(sum);
         }
-        if(count>0)totalScore=Math.round(sum);
+
+        const avgEco = ecoArr.length
+          ? Math.round(ecoArr.reduce((a, b) => a + b, 0) / ecoArr.length)
+          : null;
+        const avgDep = depArr.length
+          ? Math.round(depArr.reduce((a, b) => a + b, 0) / depArr.length)
+          : null;
+        const ecoL = avgEco !== null ? ecoLabel(avgEco) : null;
+        const depL = avgDep !== null ? depLabel(avgDep) : null;
+
+        const totalCompleted = moodleData.completions.filter(
+          (c) => c.state === 1,
+        ).length;
+        const totalActs = moodleData.completions.length;
+        const pct =
+          totalActs > 0 ? Math.round((totalCompleted / totalActs) * 100) : 0;
+
+        document.getElementById("recap-salles").textContent =
+          completedSalles + "/5";
+        document.getElementById("recap-score").textContent =
+          totalScore !== null ? totalScore + "/200" : "—";
+        document.getElementById("recap-eco").textContent = ecoL
+          ? ecoL.badge + " " + ecoL.txt
+          : "—";
+        document.getElementById("recap-dep").textContent = depL
+          ? depL.badge + " " + depL.txt
+          : "—";
+        document.getElementById("xp-fill").style.width = pct + "%";
+        document.getElementById("xp-pct").textContent = pct + " XP";
+
+        document
+          .getElementById("hud-salles")
+          .classList.toggle("active", completedSalles > 0);
+        document
+          .getElementById("hud-score")
+          .classList.toggle("active", totalScore !== null);
+        document
+          .getElementById("hud-eco")
+          .classList.toggle("active", ecoL !== null);
+        document
+          .getElementById("hud-dep")
+          .classList.toggle("active", depL !== null);
       }
 
-      const avgEco=ecoArr.length?Math.round(ecoArr.reduce((a,b)=>a+b,0)/ecoArr.length):null;
-      const avgDep=depArr.length?Math.round(depArr.reduce((a,b)=>a+b,0)/depArr.length):null;
-      const ecoL=avgEco!==null?ecoLabel(avgEco):null;
-      const depL=avgDep!==null?depLabel(avgDep):null;
-
-      const totalCompleted=moodleData.completions.filter(c=>c.state===1).length;
-      const totalActs=moodleData.completions.length;
-      const pct=totalActs>0?Math.round((totalCompleted/totalActs)*100):0;
-
-      document.getElementById('recap-salles').textContent=completedSalles+'/5';
-      document.getElementById('recap-score').textContent=totalScore!==null?totalScore+'/200':'—';
-      document.getElementById('recap-eco').textContent=ecoL?ecoL.badge+' '+ecoL.txt:'—';
-      document.getElementById('recap-dep').textContent=depL?depL.badge+' '+depL.txt:'—';
-      document.getElementById('xp-fill').style.width=pct+'%';
-      document.getElementById('xp-pct').textContent=pct+' XP';
-
-      document.getElementById('hud-salles').classList.toggle('active',completedSalles>0);
-      document.getElementById('hud-score').classList.toggle('active',totalScore!==null);
-      document.getElementById('hud-eco').classList.toggle('active',ecoL!==null);
-      document.getElementById('hud-dep').classList.toggle('active',depL!==null);
-    }
-
-    // ══════════════════════════════
-    // INIT
-    // ══════════════════════════════
-    async function init(){
-      await loadConfig();
-      const saved=loadState();
-      if(saved.token&&saved.user){
-        token=saved.token;moodleUser=saved.user;
-        if(saved.user.id)document.getElementById('inp-userid').value=saved.user.id;
-        showDashboard();loadMoodleData();
+      // ══════════════════════════════
+      // INIT
+      // ══════════════════════════════
+      async function init() {
+        await loadConfig();
+        const saved = loadState();
+        if (saved.token && saved.user) {
+          token = saved.token;
+          moodleUser = saved.user;
+          if (saved.user.id)
+            document.getElementById("inp-userid").value = saved.user.id;
+          showDashboard();
+          loadMoodleData();
+        }
+        document
+          .getElementById("inp-userid")
+          .addEventListener("keydown", (e) => {
+            if (e.key === "Enter") connectMoodle();
+          });
+        document
+          .getElementById("inp-token")
+          .addEventListener("keydown", (e) => {
+            if (e.key === "Enter") connectMoodle();
+          });
       }
-      document.getElementById('inp-userid').addEventListener('keydown',e=>{
-        if(e.key==='Enter')connectMoodle();
-      });
-      document.getElementById('inp-token').addEventListener('keydown',e=>{
-        if(e.key==='Enter')connectMoodle();
-      });
-    }
-    init();
+      init();
     </script>
   </body>
 </html>

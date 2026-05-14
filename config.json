@@ -13,10 +13,10 @@
         "Défi #2 — différent du premier"
       ],
       "videos": [
-        { "id": "A", "label": "Défi A — Lampe torche",      "yt": "" },
-        { "id": "B", "label": "Défi B — Scanner qualité",   "yt": "" },
-        { "id": "C", "label": "Défi C — Relaxation sonore", "yt": "" },
-        { "id": "D", "label": "Défi D — Comparaison vidéo", "yt": "" }
+        { "id": "A", "label": "Défi A — Lampe torche",       "yt": "QT-yTUu1Vg4" },
+        { "id": "B", "label": "Défi B — Table de relaxation", "yt": "EftKd4M5Q8w" },
+        { "id": "C", "label": "Défi C — Le scanner",          "yt": "vl2PiVQu7qQ" },
+        { "id": "D", "label": "Défi D — Slider audio-vidéo",  "yt": "VfGabLFPrC8" }
       ],
       "activity_ids": [45929, 45930],
       "assign_ids": [
@@ -29,12 +29,14 @@
     {
       "id": 2,
       "icon": "🔭",
-      "titre": "Mission 02 — Exploration",
-      "desc": "Utilise l'IA pour explorer un domaine que tu ne connais pas et formuler une idée de projet originale et défendable.",
-      "consigne": "Soumets ton idée à l'agent BALANCE TON PROJET. Obtiens un feedback, affine ton concept.",
+      "titre": "Mission 02 — Exploration, CDC & MoSCoW",
+      "desc": "Explorer un domaine avec l'IA, formuler une idée de projet originale, la structurer en cahier des charges et prioriser avec MoSCoW.",
+      "consigne": "Étape 1 — Explore un domaine et challenge ton idée avec BALANCE TON PROJET. Étape 2 — Rédige ton CDC : description, fonctionnalités, stack. Étape 3 — Classe et justifie chaque fonctionnalité en Must / Should / Could / Won't avec BALANCE TON CDC.",
       "livrables": [
-        "Fiche concept du projet (500 mots min.)",
-        "Justification du choix via l'IA"
+        "Fiche concept (500 mots min.) — contexte, problème résolu, public cible, originalité",
+        "CDC complet — description, fonctionnalités, stack, environnement de déploiement",
+        "MoSCoW argumenté — chaque fonctionnalité classée et justifiée",
+        "Extrait de conversation avec BALANCE TON PROJET ou BALANCE TON CDC"
       ],
       "videos": [],
       "activity_ids": [],
@@ -43,13 +45,14 @@
     },
     {
       "id": 3,
-      "icon": "📊",
-      "titre": "Mission 03 — Benchmark & MoSCoW",
-      "desc": "Analyse ce qui existe déjà, positionne ton projet et priorise tes fonctionnalités avec l'aide de l'IA.",
-      "consigne": "Produis ton analyse et ton MoSCoW. Soumets-les à l'agent feedback.",
+      "icon": "⚙️",
+      "titre": "Mission 03 — Assets & Réalisation",
+      "desc": "Produire le livrable principal du projet en utilisant l'IA comme outil central de production.",
+      "consigne": "Construis ton livrable en guidant l'IA à chaque étape. Documente les outils utilisés et tes choix de prompting. Héberge et partage ton livrable via une URL publique. Soumets ton travail à BALANCE TON PROMPT pour analyser ta stratégie.",
       "livrables": [
-        "Analyse comparative de 3 projets existants",
-        "MoSCoW complet et argumenté"
+        "URL publique du livrable fonctionnel et accessible",
+        "Documentation des outils IA — quels outils, pour quoi, avec quels résultats",
+        "Journal de prompting — les prompts clés, les itérations, ce qui a fonctionné ou non"
       ],
       "videos": [],
       "activity_ids": [],
@@ -58,13 +61,15 @@
     },
     {
       "id": 4,
-      "icon": "⚙️",
-      "titre": "Mission 04 — Réalisation",
-      "desc": "Produis le livrable principal de ton projet en utilisant l'IA comme outil central de production.",
-      "consigne": "Construis ton livrable avec l'IA. Documente tes outils et ta stratégie de prompting.",
+      "icon": "🎤",
+      "titre": "Mission 04 — Review & Présentation",
+      "desc": "Faire réviser le travail par l'IA, prendre du recul sur ses usages et préparer la présentation orale.",
+      "consigne": "Soumets ton livrable à un agent de review. Améliore-le sur base du feedback. Rédige une réflexion critique sur ton usage IA. Prépare ton support et crée un Wooclap avec minimum 5 questions.",
       "livrables": [
-        "Livrable fonctionnel et partageable",
-        "Documentation des outils IA utilisés"
+        "Version améliorée du livrable après review IA",
+        "Analyse critique de l'usage IA (500 mots min.) — ce que tu ferais différemment",
+        "Support de présentation — lien partageable",
+        "Wooclap — lien de session + minimum 5 questions préparées"
       ],
       "videos": [],
       "activity_ids": [],
@@ -73,13 +78,12 @@
     },
     {
       "id": 5,
-      "icon": "🎤",
-      "titre": "Mission 05 — Review & Présentation",
-      "desc": "Fais réviser ton travail par l'IA, prends du recul sur tes usages et présente ton projet devant le groupe.",
-      "consigne": "Review + réflexion critique + présentation orale avec Wooclap.",
+      "icon": "🏁",
+      "titre": "Mission 05 — Présentation Finale",
+      "desc": "Présenter son projet devant le groupe — ce qu'on a construit, comment, et ce que ça nous a appris.",
+      "consigne": "Présentation orale de 15 minutes maximum. Structure : le projet, la démarche IA, la démo, le recul critique. Lance ton Wooclap pour engager le groupe. Dépose la confirmation ci-dessous.",
       "livrables": [
-        "Version améliorée + analyse critique de l'usage IA",
-        "Présentation + Wooclap (min. 5 questions)"
+        "Confirmation de présentation — date et bilan oral"
       ],
       "videos": [],
       "activity_ids": [],
