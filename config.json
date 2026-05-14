@@ -1,0 +1,90 @@
+{
+  "course_id": 1392,
+  "moodle_url": "https://campus.promotion-sociale.be",
+  "salles": [
+    {
+      "id": 1,
+      "icon": "🎮",
+      "titre": "Mission 01 — Les Défis Front-End",
+      "desc": "Bienvenue dans le parcours. Ta première mission : réaliser 2 défis interactifs en guidant une IA. L'objectif n'est pas de coder toi-même — c'est de décrire précisément ce que tu veux, d'itérer intelligemment, et d'obtenir un résultat fonctionnel.",
+      "consigne": "Choisis 2 défis parmi les 4 proposés. Regarde les vidéos de démonstration — elles te montrent le résultat attendu, pas comment l'obtenir. Utilise BALANCE TON PROMPT pour formuler tes prompts, puis BALANCE TON DÉFI FRONT pour obtenir ton score.",
+      "livrables": [
+        "Défi #1 — ton choix parmi A, B, C, D",
+        "Défi #2 — différent du premier"
+      ],
+      "videos": [
+        { "id": "A", "label": "Défi A — Lampe torche",      "yt": "" },
+        { "id": "B", "label": "Défi B — Scanner qualité",   "yt": "" },
+        { "id": "C", "label": "Défi C — Relaxation sonore", "yt": "" },
+        { "id": "D", "label": "Défi D — Comparaison vidéo", "yt": "" }
+      ],
+      "activity_ids": [45929, 45930],
+      "assign_ids": [
+        { "cmid": 45929, "assignid": 4288, "label": "Défi #1" },
+        { "cmid": 45931, "assignid": 4290, "label": "Défi #2" }
+      ],
+      "unlock_grade_threshold": 60,
+      "always_open": true
+    },
+    {
+      "id": 2,
+      "icon": "🔭",
+      "titre": "Mission 02 — Exploration",
+      "desc": "Utilise l'IA pour explorer un domaine que tu ne connais pas et formuler une idée de projet originale et défendable.",
+      "consigne": "Soumets ton idée à l'agent BALANCE TON PROJET. Obtiens un feedback, affine ton concept.",
+      "livrables": [
+        "Fiche concept du projet (500 mots min.)",
+        "Justification du choix via l'IA"
+      ],
+      "videos": [],
+      "activity_ids": [],
+      "assign_ids": [],
+      "unlock_grade_threshold": 60
+    },
+    {
+      "id": 3,
+      "icon": "📊",
+      "titre": "Mission 03 — Benchmark & MoSCoW",
+      "desc": "Analyse ce qui existe déjà, positionne ton projet et priorise tes fonctionnalités avec l'aide de l'IA.",
+      "consigne": "Produis ton analyse et ton MoSCoW. Soumets-les à l'agent feedback.",
+      "livrables": [
+        "Analyse comparative de 3 projets existants",
+        "MoSCoW complet et argumenté"
+      ],
+      "videos": [],
+      "activity_ids": [],
+      "assign_ids": [],
+      "unlock_grade_threshold": 60
+    },
+    {
+      "id": 4,
+      "icon": "⚙️",
+      "titre": "Mission 04 — Réalisation",
+      "desc": "Produis le livrable principal de ton projet en utilisant l'IA comme outil central de production.",
+      "consigne": "Construis ton livrable avec l'IA. Documente tes outils et ta stratégie de prompting.",
+      "livrables": [
+        "Livrable fonctionnel et partageable",
+        "Documentation des outils IA utilisés"
+      ],
+      "videos": [],
+      "activity_ids": [],
+      "assign_ids": [],
+      "unlock_grade_threshold": 60
+    },
+    {
+      "id": 5,
+      "icon": "🎤",
+      "titre": "Mission 05 — Review & Présentation",
+      "desc": "Fais réviser ton travail par l'IA, prends du recul sur tes usages et présente ton projet devant le groupe.",
+      "consigne": "Review + réflexion critique + présentation orale avec Wooclap.",
+      "livrables": [
+        "Version améliorée + analyse critique de l'usage IA",
+        "Présentation + Wooclap (min. 5 questions)"
+      ],
+      "videos": [],
+      "activity_ids": [],
+      "assign_ids": [],
+      "unlock_grade_threshold": 60
+    }
+  ]
+}
