@@ -16,6 +16,7 @@
         margin: 0;
         padding: 0;
       }
+
       :root {
         --bg: #111827;
         --surface: #1a2234;
@@ -33,11 +34,14 @@
         --green: #00ff88;
         --green-lt: rgba(0, 255, 136, 0.1);
         --red: #ff4466;
+        --red-lt: rgba(255, 68, 102, 0.1);
         --gold: #ffd700;
+        --gold-lt: rgba(255, 215, 0, 0.1);
         --locked-bg: #131b2a;
         --mono: "JetBrains Mono", monospace;
         --sans: "Syne", sans-serif;
       }
+
       body {
         background: var(--bg);
         color: var(--text);
@@ -45,6 +49,7 @@
         min-height: 100vh;
         overflow-x: hidden;
       }
+
       body::after {
         content: "";
         position: fixed;
@@ -59,19 +64,21 @@
         pointer-events: none;
         z-index: 9999;
       }
+
       .page {
         max-width: 900px;
         margin: 0 auto;
         padding: 2rem 1.5rem 5rem;
       }
 
-      /* CONNEXION */
+      /* ── CONNEXION MOODLE ── */
       #setup-screen {
         min-height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
       }
+
       .setup-card {
         background: var(--surface);
         border: 1px solid var(--border);
@@ -82,6 +89,7 @@
         position: relative;
         overflow: hidden;
       }
+
       .setup-card::before {
         content: "";
         position: absolute;
@@ -92,16 +100,20 @@
         background: linear-gradient(90deg, var(--accent), #8800ff);
         box-shadow: 0 0 12px var(--accent-glow);
       }
+
       .setup-logo {
         font-family: var(--sans);
         font-size: 1.6rem;
         font-weight: 800;
         margin-bottom: 0.25rem;
+        letter-spacing: -0.02em;
       }
+
       .setup-logo span {
         color: var(--accent);
         text-shadow: 0 0 16px var(--accent-glow);
       }
+
       .setup-sub {
         font-size: 0.62rem;
         letter-spacing: 0.15em;
@@ -109,6 +121,7 @@
         text-transform: uppercase;
         margin-bottom: 2rem;
       }
+
       .setup-label {
         font-size: 0.58rem;
         letter-spacing: 0.15em;
@@ -117,6 +130,7 @@
         margin-bottom: 0.4rem;
         display: block;
       }
+
       .setup-input {
         width: 100%;
         font-family: var(--mono);
@@ -131,17 +145,30 @@
         transition:
           border-color 0.15s,
           box-shadow 0.15s;
+        letter-spacing: 0.04em;
       }
+
       .setup-input:focus {
         border-color: var(--accent);
         box-shadow: 0 0 10px var(--accent-lt);
       }
+
       .setup-hint {
         font-size: 0.62rem;
         color: var(--muted2);
         line-height: 1.6;
         margin-bottom: 1.5rem;
       }
+
+      .setup-hint a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      .setup-hint a:hover {
+        text-decoration: underline;
+      }
+
       .setup-hint code {
         background: var(--surface2);
         border: 1px solid var(--border);
@@ -150,6 +177,7 @@
         font-size: 0.6rem;
         color: var(--muted);
       }
+
       .btn-connect {
         width: 100%;
         font-family: var(--mono);
@@ -165,6 +193,7 @@
         text-transform: uppercase;
         font-weight: 500;
       }
+
       .btn-connect:hover {
         box-shadow: 0 0 20px var(--accent-glow);
         opacity: 0.9;
@@ -173,6 +202,7 @@
         opacity: 0.5;
         cursor: default;
       }
+
       .setup-err {
         font-size: 0.68rem;
         color: var(--red);
@@ -180,9 +210,11 @@
         display: none;
         line-height: 1.5;
       }
+
       .setup-err.show {
         display: block;
       }
+
       .setup-loading {
         display: none;
         align-items: center;
@@ -191,9 +223,11 @@
         color: var(--muted);
         margin-top: 0.75rem;
       }
+
       .setup-loading.show {
         display: flex;
       }
+
       .spinner {
         width: 14px;
         height: 14px;
@@ -202,13 +236,14 @@
         border-radius: 50%;
         animation: spin 0.7s linear infinite;
       }
+
       @keyframes spin {
         to {
           transform: rotate(360deg);
         }
       }
 
-      /* HEADER */
+      /* ── HEADER ── */
       header {
         display: flex;
         align-items: flex-start;
@@ -219,17 +254,20 @@
         padding-bottom: 1.5rem;
         border-bottom: 1px solid var(--border);
       }
+
       .header-brand {
         display: flex;
         flex-direction: column;
         gap: 0.25rem;
       }
+
       .header-label {
         font-size: 0.6rem;
         letter-spacing: 0.25em;
         color: var(--accent);
         text-transform: uppercase;
       }
+
       .header-title {
         font-family: var(--sans);
         font-size: 1.8rem;
@@ -237,16 +275,20 @@
         line-height: 1;
         letter-spacing: -0.02em;
       }
+
       .header-title span {
         color: var(--accent);
         text-shadow: 0 0 20px var(--accent-glow);
       }
+
       .header-sub {
         font-size: 0.65rem;
         color: var(--muted);
         letter-spacing: 0.1em;
         margin-top: 0.25rem;
       }
+
+      /* IDENTITÉ CONNECTÉE */
       .identity-connected {
         background: var(--surface);
         border: 1px solid var(--green);
@@ -255,15 +297,19 @@
         display: flex;
         align-items: center;
         gap: 0.75rem;
+        box-shadow: 0 0 10px rgba(0, 255, 136, 0.08);
       }
+
       .identity-dot {
         width: 8px;
         height: 8px;
         background: var(--green);
         border-radius: 50%;
         flex-shrink: 0;
+        box-shadow: 0 0 6px rgba(0, 255, 136, 0.6);
         animation: blink-dot 2s ease infinite;
       }
+
       @keyframes blink-dot {
         0%,
         100% {
@@ -273,21 +319,26 @@
           opacity: 0.4;
         }
       }
+
       .identity-info {
         display: flex;
         flex-direction: column;
         gap: 0.15rem;
       }
+
       .identity-name {
         font-size: 0.85rem;
         font-weight: 500;
+        color: var(--text);
       }
+
       .identity-meta {
         font-size: 0.58rem;
         letter-spacing: 0.1em;
         color: var(--muted);
         text-transform: uppercase;
       }
+
       .btn-disconnect {
         font-family: var(--mono);
         font-size: 0.55rem;
@@ -301,18 +352,20 @@
         transition: all 0.15s;
         margin-left: auto;
       }
+
       .btn-disconnect:hover {
         color: var(--red);
         border-color: var(--red);
       }
 
-      /* HUD */
+      /* ── HUD ── */
       .hud {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: 0.75rem;
         margin-bottom: 1.5rem;
       }
+
       .hud-cell {
         background: var(--surface);
         border: 1px solid var(--border);
@@ -320,7 +373,9 @@
         padding: 0.875rem 1rem;
         position: relative;
         overflow: hidden;
+        transition: border-color 0.2s;
       }
+
       .hud-cell::before {
         content: "";
         position: absolute;
@@ -331,10 +386,12 @@
         background: var(--accent);
         opacity: 0.4;
       }
+
       .hud-cell.active::before {
         opacity: 1;
         box-shadow: 0 0 8px var(--accent-glow);
       }
+
       .hud-label {
         font-size: 0.55rem;
         letter-spacing: 0.15em;
@@ -342,27 +399,34 @@
         text-transform: uppercase;
         margin-bottom: 0.4rem;
       }
+
       .hud-val {
         font-family: var(--sans);
         font-size: 1.5rem;
         font-weight: 800;
         line-height: 1;
       }
+
       .hud-val.accent {
         color: var(--accent);
         text-shadow: 0 0 12px var(--accent-glow);
       }
+      .hud-val.green {
+        color: var(--green);
+      }
 
-      /* XP */
+      /* ── XP BAR ── */
       .xp-wrap {
         margin-bottom: 2rem;
       }
+
       .xp-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-bottom: 0.4rem;
       }
+
       .xp-label {
         font-size: 0.6rem;
         letter-spacing: 0.15em;
@@ -374,6 +438,7 @@
         color: var(--accent);
         font-weight: 500;
       }
+
       .xp-track {
         height: 4px;
         background: var(--surface2);
@@ -381,6 +446,7 @@
         overflow: visible;
         position: relative;
       }
+
       .xp-fill {
         height: 100%;
         background: linear-gradient(90deg, var(--accent), #8800ff);
@@ -388,6 +454,7 @@
         transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
         position: relative;
       }
+
       .xp-fill::after {
         content: "";
         position: absolute;
@@ -400,7 +467,7 @@
         box-shadow: 0 0 8px var(--accent-glow);
       }
 
-      /* SYNC */
+      /* ── SYNC STATUS ── */
       .sync-bar {
         display: flex;
         align-items: center;
@@ -408,7 +475,9 @@
         font-size: 0.6rem;
         color: var(--muted2);
         margin-bottom: 1.25rem;
+        letter-spacing: 0.06em;
       }
+
       .sync-dot {
         width: 6px;
         height: 6px;
@@ -416,8 +485,10 @@
         background: var(--muted2);
         flex-shrink: 0;
       }
+
       .sync-dot.ok {
         background: var(--green);
+        box-shadow: 0 0 4px rgba(0, 255, 136, 0.5);
       }
       .sync-dot.loading {
         background: var(--gold);
@@ -426,6 +497,7 @@
       .sync-dot.err {
         background: var(--red);
       }
+
       .btn-refresh {
         font-family: var(--mono);
         font-size: 0.55rem;
@@ -436,15 +508,21 @@
         border-radius: 3px;
         padding: 0.15rem 0.5rem;
         cursor: pointer;
+        transition: all 0.15s;
         margin-left: auto;
       }
 
-      /* SALLES */
+      .btn-refresh:hover {
+        background: var(--accent-md);
+      }
+
+      /* ── SALLES ── */
       .salles {
         display: flex;
         flex-direction: column;
         gap: 0.75rem;
       }
+
       .salle {
         border-radius: 8px;
         overflow: hidden;
@@ -453,6 +531,370 @@
         transition:
           border-color 0.2s,
           box-shadow 0.2s;
+      }
+
+      .salle.unlocked {
+        border-color: var(--border2);
+      }
+      .salle.active-salle {
+        border-color: var(--accent);
+        box-shadow: 0 0 20px var(--accent-lt);
+      }
+      .salle.locked-salle {
+        background: var(--locked-bg);
+        opacity: 0.6;
+      }
+
+      .salle-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem 1.25rem;
+        cursor: pointer;
+        user-select: none;
+        transition: background 0.15s;
+      }
+
+      .salle-header:hover {
+        background: var(--surface2);
+      }
+      .locked-salle .salle-header {
+        cursor: default;
+      }
+
+      .salle-icon {
+        font-size: 1.1rem;
+        width: 28px;
+        text-align: center;
+        flex-shrink: 0;
+      }
+
+      .salle-num {
+        font-size: 0.55rem;
+        letter-spacing: 0.15em;
+        color: var(--muted);
+        text-transform: uppercase;
+        min-width: 52px;
+      }
+
+      .salle-title {
+        font-family: var(--sans);
+        font-size: 0.9rem;
+        font-weight: 700;
+        flex: 1;
+      }
+
+      .locked-salle .salle-title {
+        color: var(--muted2);
+      }
+
+      .salle-badge {
+        font-size: 0.6rem;
+        letter-spacing: 0.1em;
+        padding: 0.2rem 0.6rem;
+        border-radius: 3px;
+        text-transform: uppercase;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+
+      .badge-locked {
+        background: var(--locked-bg);
+        color: var(--muted2);
+        border: 1px solid var(--border);
+      }
+      .badge-open {
+        background: var(--accent-lt);
+        color: var(--accent);
+        border: 1px solid var(--accent);
+        animation: pulse-badge 2s infinite;
+      }
+      .badge-done {
+        background: var(--green-lt);
+        color: var(--green);
+        border: 1px solid var(--green);
+      }
+
+      @keyframes pulse-badge {
+        0%,
+        100% {
+          box-shadow: 0 0 0 0 var(--accent-md);
+        }
+        50% {
+          box-shadow: 0 0 8px 2px var(--accent-lt);
+        }
+      }
+
+      .salle-chevron {
+        font-size: 0.7rem;
+        color: var(--muted);
+        transition: transform 0.2s;
+        flex-shrink: 0;
+      }
+      .salle.expanded .salle-chevron {
+        transform: rotate(180deg);
+      }
+
+      .salle-body {
+        display: none;
+        padding: 0 1.25rem 1.25rem;
+        border-top: 1px solid var(--border);
+      }
+
+      .salle.expanded .salle-body {
+        display: block;
+      }
+
+      /* ── CONTENU SALLE ── */
+      .salle-desc {
+        font-size: 0.78rem;
+        color: var(--muted);
+        line-height: 1.7;
+        margin: 1rem 0;
+      }
+
+      .mission-label {
+        font-size: 0.55rem;
+        letter-spacing: 0.15em;
+        color: var(--accent);
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
+        margin-top: 1.25rem;
+      }
+
+      .livrables {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+        margin-bottom: 1rem;
+      }
+
+      .livrables li {
+        font-size: 0.78rem;
+        color: var(--muted);
+        display: flex;
+        gap: 0.5rem;
+        align-items: baseline;
+      }
+      .livrables li::before {
+        content: "›";
+        color: var(--accent);
+        flex-shrink: 0;
+      }
+
+      /* ── VIDÉOS ── */
+      .videos-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+        margin: 1rem 0;
+      }
+
+      .video-card {
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        overflow: hidden;
+        transition: border-color 0.2s;
+      }
+
+      .video-card:hover {
+        border-color: var(--accent);
+      }
+      .video-embed {
+        width: 100%;
+        aspect-ratio: 16/9;
+        display: block;
+      }
+
+      .video-label {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.65rem;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+        text-transform: uppercase;
+        border-top: 1px solid var(--border);
+      }
+
+      .video-placeholder {
+        width: 100%;
+        aspect-ratio: 16/9;
+        background: var(--surface3);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        color: var(--muted2);
+        font-size: 0.7rem;
+        letter-spacing: 0.1em;
+      }
+
+      .video-placeholder span {
+        font-size: 1.5rem;
+      }
+
+      /* ── SCORES ── */
+      .scores-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
+        margin: 1rem 0;
+      }
+
+      .score-cell {
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 0.75rem;
+      }
+      .score-cell-label {
+        font-size: 0.55rem;
+        letter-spacing: 0.12em;
+        color: var(--muted);
+        text-transform: uppercase;
+        margin-bottom: 0.35rem;
+      }
+      .score-cell-val {
+        font-family: var(--sans);
+        font-size: 1.3rem;
+        font-weight: 800;
+        line-height: 1;
+      }
+      .score-cell-sub {
+        font-size: 0.6rem;
+        color: var(--muted);
+        margin-top: 0.25rem;
+      }
+
+      /* ── MOODLE DATA BLOCK ── */
+      .moodle-block {
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        overflow: hidden;
+        margin: 1rem 0;
+      }
+
+      .moodle-block-header {
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid var(--border);
+        font-size: 0.6rem;
+        letter-spacing: 0.15em;
+        color: var(--accent);
+        text-transform: uppercase;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .moodle-activity {
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .moodle-activity:last-child {
+        border-bottom: none;
+      }
+
+      .activity-status {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.65rem;
+        flex-shrink: 0;
+      }
+
+      .activity-status.done {
+        background: var(--green-lt);
+        border: 1px solid var(--green);
+        color: var(--green);
+      }
+      .activity-status.pending {
+        background: var(--surface3);
+        border: 1px solid var(--border);
+        color: var(--muted2);
+      }
+
+      .activity-name {
+        font-size: 0.75rem;
+        color: var(--text);
+        flex: 1;
+      }
+      .activity-grade {
+        font-size: 0.7rem;
+        color: var(--accent);
+        font-weight: 500;
+      }
+
+      /* ── VALIDATED MSG ── */
+      .validated-msg {
+        margin-top: 0.75rem;
+        padding: 0.6rem 0.875rem;
+        background: var(--green-lt);
+        border: 1px solid var(--green);
+        border-radius: 4px;
+        font-size: 0.7rem;
+        color: var(--green);
+        font-weight: 500;
+        letter-spacing: 0.05em;
+      }
+
+      .locked-msg {
+        margin-top: 0.75rem;
+        padding: 0.6rem 0.875rem;
+        background: var(--locked-bg);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        font-size: 0.7rem;
+        color: var(--muted2);
+        letter-spacing: 0.05em;
+      }
+
+      /* ── RESET ── */
+      .reset-zone {
+        text-align: center;
+        margin-top: 3rem;
+      }
+
+      .reset-btn {
+        font-family: var(--mono);
+        font-size: 0.6rem;
+        letter-spacing: 0.1em;
+        color: var(--muted2);
+        background: none;
+        border: none;
+        cursor: pointer;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        text-transform: uppercase;
+        transition: color 0.15s;
+      }
+
+      .reset-btn:hover {
+        color: var(--red);
+      }
+
+      /* ── ANIMATIONS ── */
+      @keyframes fadeSlide {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .salle {
         animation: fadeSlide 0.3s ease both;
       }
       .salle:nth-child(1) {
@@ -470,327 +912,7 @@
       .salle:nth-child(5) {
         animation-delay: 0.25s;
       }
-      .salle.unlocked {
-        border-color: var(--border2);
-      }
-      .salle.active-salle {
-        border-color: var(--accent);
-        box-shadow: 0 0 20px var(--accent-lt);
-      }
-      .salle.locked-salle {
-        background: var(--locked-bg);
-        opacity: 0.6;
-      }
-      .salle-header {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        padding: 1rem 1.25rem;
-        cursor: pointer;
-        user-select: none;
-        transition: background 0.15s;
-      }
-      .salle-header:hover {
-        background: var(--surface2);
-      }
-      .locked-salle .salle-header {
-        cursor: default;
-      }
-      .salle-icon {
-        font-size: 1.1rem;
-        width: 28px;
-        text-align: center;
-        flex-shrink: 0;
-      }
-      .salle-num {
-        font-size: 0.55rem;
-        letter-spacing: 0.15em;
-        color: var(--muted);
-        text-transform: uppercase;
-        min-width: 52px;
-      }
-      .salle-title {
-        font-family: var(--sans);
-        font-size: 0.9rem;
-        font-weight: 700;
-        flex: 1;
-      }
-      .locked-salle .salle-title {
-        color: var(--muted2);
-      }
-      .salle-badge {
-        font-size: 0.6rem;
-        letter-spacing: 0.1em;
-        padding: 0.2rem 0.6rem;
-        border-radius: 3px;
-        text-transform: uppercase;
-        font-weight: 700;
-        white-space: nowrap;
-      }
-      .badge-locked {
-        background: var(--locked-bg);
-        color: var(--muted2);
-        border: 1px solid var(--border);
-      }
-      .badge-open {
-        background: var(--accent-lt);
-        color: var(--accent);
-        border: 1px solid var(--accent);
-        animation: pulse-badge 2s infinite;
-      }
-      .badge-done {
-        background: var(--green-lt);
-        color: var(--green);
-        border: 1px solid var(--green);
-      }
-      @keyframes pulse-badge {
-        0%,
-        100% {
-          box-shadow: 0 0 0 0 var(--accent-md);
-        }
-        50% {
-          box-shadow: 0 0 8px 2px var(--accent-lt);
-        }
-      }
-      .salle-chevron {
-        font-size: 0.7rem;
-        color: var(--muted);
-        transition: transform 0.2s;
-        flex-shrink: 0;
-      }
-      .salle.expanded .salle-chevron {
-        transform: rotate(180deg);
-      }
-      .salle-body {
-        display: none;
-        padding: 0 1.25rem 1.25rem;
-        border-top: 1px solid var(--border);
-      }
-      .salle.expanded .salle-body {
-        display: block;
-      }
 
-      /* CONTENU */
-      .salle-desc {
-        font-size: 0.78rem;
-        color: var(--muted);
-        line-height: 1.7;
-        margin: 1rem 0;
-      }
-      .mission-label {
-        font-size: 0.55rem;
-        letter-spacing: 0.15em;
-        color: var(--accent);
-        text-transform: uppercase;
-        margin-bottom: 0.5rem;
-        margin-top: 1.25rem;
-      }
-      .livrables {
-        list-style: none;
-        display: flex;
-        flex-direction: column;
-        gap: 0.3rem;
-        margin-bottom: 1rem;
-      }
-      .livrables li {
-        font-size: 0.78rem;
-        color: var(--muted);
-        display: flex;
-        gap: 0.5rem;
-        align-items: baseline;
-      }
-      .livrables li::before {
-        content: "›";
-        color: var(--accent);
-        flex-shrink: 0;
-      }
-
-      /* VIDÉOS */
-      .videos-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.75rem;
-        margin: 1rem 0;
-      }
-      .video-card {
-        background: var(--surface2);
-        border: 1px solid var(--border);
-        border-radius: 6px;
-        overflow: hidden;
-        transition: border-color 0.2s;
-      }
-      .video-card:hover {
-        border-color: var(--accent);
-      }
-      .video-embed {
-        width: 100%;
-        aspect-ratio: 16/9;
-        display: block;
-      }
-      .video-label {
-        padding: 0.5rem 0.75rem;
-        font-size: 0.65rem;
-        letter-spacing: 0.08em;
-        color: var(--muted);
-        text-transform: uppercase;
-        border-top: 1px solid var(--border);
-      }
-      .video-placeholder {
-        width: 100%;
-        aspect-ratio: 16/9;
-        background: var(--surface3);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
-        color: var(--muted2);
-        font-size: 0.7rem;
-      }
-      .video-placeholder span {
-        font-size: 1.5rem;
-      }
-
-      /* MOODLE BLOCK */
-      .moodle-block {
-        background: var(--surface2);
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        overflow: hidden;
-        margin: 1rem 0;
-      }
-      .moodle-block-header {
-        padding: 0.75rem 1rem;
-        border-bottom: 1px solid var(--border);
-        font-size: 0.6rem;
-        letter-spacing: 0.15em;
-        color: var(--accent);
-        text-transform: uppercase;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      .moodle-activity {
-        padding: 0.75rem 1rem;
-        border-bottom: 1px solid var(--border);
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-      }
-      .moodle-activity:last-child {
-        border-bottom: none;
-      }
-      .activity-status {
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 0.65rem;
-        flex-shrink: 0;
-      }
-      .activity-status.done {
-        background: var(--green-lt);
-        border: 1px solid var(--green);
-        color: var(--green);
-      }
-      .activity-status.pending {
-        background: var(--surface3);
-        border: 1px solid var(--border);
-        color: var(--muted2);
-      }
-      .activity-name {
-        font-size: 0.75rem;
-        color: var(--text);
-        flex: 1;
-      }
-      .activity-grade {
-        font-size: 0.7rem;
-        color: var(--accent);
-        font-weight: 500;
-      }
-
-      /* SCORES DÉFI */
-      .defi-scores {
-        background: var(--surface3);
-        border-top: 1px solid var(--border);
-        padding: 0.75rem 1rem;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 0.5rem;
-      }
-      .defi-score-item {
-        display: flex;
-        flex-direction: column;
-        gap: 0.15rem;
-      }
-      .defi-score-lbl {
-        font-size: 0.5rem;
-        letter-spacing: 0.12em;
-        color: var(--muted2);
-        text-transform: uppercase;
-      }
-      .defi-score-val {
-        font-family: var(--sans);
-        font-size: 1.1rem;
-        font-weight: 800;
-      }
-      .defi-score-badge {
-        font-size: 0.65rem;
-        color: var(--muted);
-      }
-
-      /* MISC */
-      .validated-msg {
-        margin-top: 0.75rem;
-        padding: 0.6rem 0.875rem;
-        background: var(--green-lt);
-        border: 1px solid var(--green);
-        border-radius: 4px;
-        font-size: 0.7rem;
-        color: var(--green);
-        font-weight: 500;
-      }
-      .locked-msg {
-        margin-top: 0.75rem;
-        padding: 0.6rem 0.875rem;
-        background: var(--locked-bg);
-        border: 1px solid var(--border);
-        border-radius: 4px;
-        font-size: 0.7rem;
-        color: var(--muted2);
-      }
-      .reset-zone {
-        text-align: center;
-        margin-top: 3rem;
-      }
-      .reset-btn {
-        font-family: var(--mono);
-        font-size: 0.6rem;
-        letter-spacing: 0.1em;
-        color: var(--muted2);
-        background: none;
-        border: none;
-        cursor: pointer;
-        text-decoration: underline;
-        text-underline-offset: 3px;
-        text-transform: uppercase;
-        transition: color 0.15s;
-      }
-      .reset-btn:hover {
-        color: var(--red);
-      }
-      @keyframes fadeSlide {
-        from {
-          opacity: 0;
-          transform: translateY(8px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
       @keyframes glow-pulse {
         0%,
         100% {
@@ -802,9 +924,12 @@
             0 0 40px var(--accent-lt);
         }
       }
+
       .glow {
         animation: glow-pulse 3s ease infinite;
       }
+
+      /* ── RESPONSIVE ── */
       @media (max-width: 600px) {
         .hud {
           grid-template-columns: repeat(2, 1fr);
@@ -812,29 +937,24 @@
         .videos-grid {
           grid-template-columns: 1fr;
         }
+        .scores-row {
+          grid-template-columns: 1fr 1fr;
+        }
         .header-title {
           font-size: 1.3rem;
-        }
-        .defi-scores {
-          grid-template-columns: 1fr 1fr;
         }
       }
     </style>
   </head>
   <body>
-    <!-- CONNEXION -->
+    <!-- ══════════════════════════════════════
+     ÉCRAN DE CONNEXION MOODLE
+══════════════════════════════════════ -->
     <div id="setup-screen">
       <div class="setup-card">
         <div class="setup-logo">PARCOURS <span>IA</span></div>
         <div class="setup-sub">EAFC Charlemagne · Connexion Moodle</div>
-        <label class="setup-label" for="inp-userid">Ton ID Moodle</label>
-        <input
-          class="setup-input"
-          type="number"
-          id="inp-userid"
-          placeholder="400004"
-          autocomplete="off"
-        />
+
         <label class="setup-label" for="inp-token">Token Moodle</label>
         <input
           class="setup-input"
@@ -843,29 +963,32 @@
           placeholder="Colle ton token ici…"
           autocomplete="off"
         />
+
         <div class="setup-hint">
-          <strong>ID Moodle</strong> — clique sur ton nom en haut à droite de
-          Moodle.<br />
-          L'URL contient <code>…/user/profile.php?id=XXXX</code> — XXXX est ton
-          ID.<br /><br />
-          <strong>Token</strong> —
+          Trouve ton token dans Moodle :<br />
           <strong>Mes préférences → Sécurité → Clés de service</strong><br />
-          → Copie la clé du service <code>Moodle mobile web service</code
-          ><br /><br />
-          Ces informations sont sauvegardées localement dans ton navigateur.
+          → Copie la clé du service <code>Moodle mobile web service</code>
+          <br /><br />
+          Ton token est sauvegardé localement dans ton navigateur. Il ne sera
+          jamais envoyé ailleurs que vers Moodle.
         </div>
+
         <button class="btn-connect" id="btn-connect" onclick="connectMoodle()">
           Connecter →
         </button>
+
         <div class="setup-loading" id="setup-loading">
           <div class="spinner"></div>
-          <span>Vérification…</span>
+          <span>Vérification du token…</span>
         </div>
+
         <div class="setup-err" id="setup-err"></div>
       </div>
     </div>
 
-    <!-- DASHBOARD -->
+    <!-- ══════════════════════════════════════
+     DASHBOARD PRINCIPAL
+══════════════════════════════════════ -->
     <div id="dashboard" style="display: none">
       <div class="page">
         <header>
@@ -901,13 +1024,15 @@
             <div class="hud-label">Score mission 1</div>
             <div class="hud-val" id="recap-score">—</div>
           </div>
-          <div class="hud-cell" id="hud-eco">
-            <div class="hud-label">Éco moyen</div>
-            <div class="hud-val" id="recap-eco" style="font-size: 1rem">—</div>
+          <div class="hud-cell">
+            <div class="hud-label">Activités complétées</div>
+            <div class="hud-val" id="recap-completed">—</div>
           </div>
-          <div class="hud-cell" id="hud-dep">
-            <div class="hud-label">Dépendance IA</div>
-            <div class="hud-val" id="recap-dep" style="font-size: 1rem">—</div>
+          <div class="hud-cell">
+            <div class="hud-label">Badges obtenus</div>
+            <div class="hud-val" id="recap-badges" style="font-size: 1.2rem">
+              —
+            </div>
           </div>
         </div>
 
@@ -930,6 +1055,7 @@
         </div>
 
         <div class="salles" id="salles-container"></div>
+
         <div class="reset-zone">
           <button class="reset-btn" onclick="disconnect()">
             ↺ Changer de compte
@@ -938,40 +1064,20 @@
       </div>
     </div>
 
+    <script src="config.js"></script>
     <script>
-      // ══════════════════════════════
-      // CONFIG
-      // ══════════════════════════════
-      const MOODLE_URL = "https://campus.promotion-sociale.be";
-      const COURSE_ID = 1392;
-      const STORAGE_KEY = "parcours_ia_moodle_v2";
+      // ══════════════════════════════════════════════════════════
+      // CONFIG — chargée depuis config.js (voir config.example.js)
+      // ══════════════════════════════════════════════════════════
+      const STORAGE_KEY = "parcours_ia_moodle_v1";
 
-      // ══════════════════════════════
-      // LABELS
-      // ══════════════════════════════
-      function ecoLabel(s) {
-        if (s >= 17)
-          return { badge: "🌿", txt: "Chirurgical", color: "var(--green)" };
-        if (s >= 12)
-          return { badge: "⚡", txt: "Raisonnable", color: "#60a5fa" };
-        if (s >= 6)
-          return { badge: "🔥", txt: "Énergivore", color: "var(--gold)" };
-        return { badge: "☢️", txt: "Catastrophe", color: "var(--red)" };
-      }
-      function depLabel(p) {
-        if (p <= 20)
-          return { badge: "🧠", txt: "Autonome", color: "var(--green)" };
-        if (p <= 40) return { badge: "✅", txt: "Correct", color: "#60a5fa" };
-        if (p <= 60)
-          return { badge: "🩼", txt: "Béquille", color: "var(--gold)" };
-        if (p <= 80)
-          return { badge: "🤖", txt: "Dépendant·e", color: "#fb923c" };
-        return { badge: "💀", txt: "IA pilote", color: "var(--red)" };
-      }
+      // ── Définition des 5 salles ──────────────────────────────
+      // activity_ids : IDs des activités Moodle correspondant à cette salle
+      // (récupère-les depuis l'URL de chaque activité dans Moodle : ?id=XXXX)
+      // grade_item   : nom partiel de l'item de note dans le carnet Moodle (optionnel)
+      // unlock_condition : 'completion' | 'grade'
+      // unlock_threshold : si 'grade', note minimale requise (sur 100)
 
-      // ══════════════════════════════
-      // SALLES
-      // ══════════════════════════════
       const SALLES_DEF = [
         {
           id: 1,
@@ -979,24 +1085,19 @@
           titre: "Mission 01 — Les Défis Front-End",
           desc: "Bienvenue dans le parcours. Ta première mission : réaliser 2 défis interactifs en guidant une IA. L'objectif n'est pas de coder toi-même — c'est de décrire précisément ce que tu veux, d'itérer intelligemment, et d'obtenir un résultat fonctionnel.",
           consigne:
-            "Choisis 2 défis parmi les 4 proposés. Regarde les vidéos de démonstration — elles te montrent le résultat attendu, pas comment l'obtenir. Utilise BALANCE TON PROMPT pour formuler tes prompts, puis BALANCE TON DÉFI FRONT pour obtenir ton score.",
+            "Choisis 2 défis parmi les 4 proposés. Regarde les vidéos de démonstration — elles te montrent le résultat attendu, pas comment l'obtenir. Utilise l'agent BALANCE TON PROMPT pour formuler tes prompts, puis soumets ta conversation à BALANCE TON DÉFI pour obtenir ton score.",
           livrables: [
             "Défi #1 — ton choix parmi A, B, C, D",
             "Défi #2 — différent du premier",
           ],
           videos: [
-            { id: "A", label: "Défi A — Lampe torche", yt: "" },
-            { id: "B", label: "Défi B — Scanner qualité", yt: "" },
-            { id: "C", label: "Défi C — Relaxation sonore", yt: "" },
-            { id: "D", label: "Défi D — Comparaison vidéo", yt: "" },
+            { id: "A", label: "Défi A — Visite nocturne", yt: "" },
+            { id: "B", label: "Défi B — Contrôle qualité", yt: "" },
+            { id: "C", label: "Défi C — Ambiance sonore", yt: "" },
+            { id: "D", label: "Défi D — Avant / Après", yt: "" },
           ],
-          activity_ids: [45929, 45930],
-          assign_ids: [
-            { cmid: 45929, assignid: 4288, label: "Défi #1" },
-            { cmid: 45930, assignid: 4289, label: "Défi #2" },
-          ],
-          unlock_grade_threshold: 60,
-          always_open: true,
+          activity_ids: [45929, 45930], // ← ex: [12345, 12346]  IDs activités Moodle salle 1
+          always_open: true, // salle 1 toujours accessible
         },
         {
           id: 2,
@@ -1009,8 +1110,7 @@
             "Fiche concept du projet (500 mots min.)",
             "Justification du choix via l'IA",
           ],
-          activity_ids: [],
-          assign_ids: [],
+          activity_ids: [], // ← IDs activités Moodle salle 2
         },
         {
           id: 3,
@@ -1024,7 +1124,6 @@
             "MoSCoW complet et argumenté",
           ],
           activity_ids: [],
-          assign_ids: [],
         },
         {
           id: 4,
@@ -1038,7 +1137,6 @@
             "Documentation des outils IA utilisés",
           ],
           activity_ids: [],
-          assign_ids: [],
         },
         {
           id: 5,
@@ -1052,39 +1150,35 @@
             "Présentation + Wooclap (min. 5 questions)",
           ],
           activity_ids: [],
-          assign_ids: [],
         },
       ];
 
-      // ══════════════════════════════
+      // ══════════════════════════════════════════════════════════
       // STATE
-      // ══════════════════════════════
-      let token = null,
-        moodleUser = null;
-      let moodleData = {
-        completions: [],
-        grades: [],
-        badges: [],
-        feedbacks: {},
-      };
+      // ══════════════════════════════════════════════════════════
+      let token = null;
+      let moodleUser = null;
+      let moodleData = { completions: [], grades: [], badges: [] };
 
       function loadState() {
         const s = localStorage.getItem(STORAGE_KEY);
         return s ? JSON.parse(s) : {};
       }
+
       function saveState(obj) {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(obj));
       }
 
-      // ══════════════════════════════
-      // API
-      // ══════════════════════════════
+      // ══════════════════════════════════════════════════════════
+      // API MOODLE
+      // ══════════════════════════════════════════════════════════
       async function moodleCall(fn, params = {}) {
         const url = new URL(`${MOODLE_URL}/webservice/rest/server.php`);
         url.searchParams.set("wstoken", token);
         url.searchParams.set("wsfunction", fn);
         url.searchParams.set("moodlewsrestformat", "json");
         for (const [k, v] of Object.entries(params)) url.searchParams.set(k, v);
+
         const res = await fetch(url.toString());
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
@@ -1092,52 +1186,47 @@
         return data;
       }
 
-      function parseFeedback(html) {
-        if (!html) return { eco: null, dep: null };
-        const eco = html.match(/ECO:(\d+)/)?.[1];
-        const dep = html.match(/DEP:(\d+)/)?.[1];
-        return {
-          eco: eco !== undefined ? parseInt(eco) : null,
-          dep: dep !== undefined ? parseInt(dep) : null,
-        };
-      }
-
-      // ══════════════════════════════
+      // ══════════════════════════════════════════════════════════
       // CONNEXION
-      // ══════════════════════════════
+      // ══════════════════════════════════════════════════════════
       async function connectMoodle() {
-        const t = document.getElementById("inp-token").value.trim();
-        const uid = parseInt(
-          document.getElementById("inp-userid").value.trim(),
-        );
+        const inp = document.getElementById("inp-token");
+        const t = inp.value.trim();
         if (!t) {
-          showSetupErr("Entre ton token Moodle.");
+          showSetupErr("Entre ton token.");
           return;
         }
-        if (!uid || isNaN(uid)) {
-          showSetupErr(
-            `Entre ton ID Moodle — le nombre dans l'URL de ton profil.`,
-          );
-          return;
-        }
+
         setSetupLoading(true);
         token = t;
+
         try {
-          // Validation token + récupération nom via gradereport avec l'ID fourni
-          const gr = await moodleCall("gradereport_user_get_grade_items", {
-            courseid: COURSE_ID,
-            userid: uid,
+          // Vérification token + récupération infos utilisateur
+          const info = await moodleCall("core_user_get_users_by_field", {
+            field: "id",
+            "values[0]": "0", // valeur factice — ce qui compte c'est que ça réponde
           });
-          const fullname = gr?.usergrades?.[0]?.userfullname || "Étudiant·e";
-          moodleUser = { id: uid, fullname: fullname, username: "" };
+          moodleUser = {
+            id: info[0]?.id || 0,
+            fullname: info[0]?.fullname || "Étudiant·e",
+            username: info[0]?.username || "",
+          };
+          moodleUser = {
+            id: info.userid,
+            fullname: info.fullname,
+            username: info.username,
+          };
+
+          // Sauvegarde
           saveState({ token: t, user: moodleUser });
+
           setSetupLoading(false);
           showDashboard();
           loadMoodleData();
         } catch (e) {
           setSetupLoading(false);
           showSetupErr(
-            `Connexion impossible — vérifie ton ID et ton token.<br><small>${e.message}</small>`,
+            `Token invalide ou connexion impossible.<br><small>${e.message}</small>`,
           );
           token = null;
         }
@@ -1148,6 +1237,7 @@
         document.getElementById("btn-connect").disabled = on;
         document.getElementById("setup-err").classList.remove("show");
       }
+
       function showSetupErr(msg) {
         const el = document.getElementById("setup-err");
         el.innerHTML = msg;
@@ -1160,38 +1250,42 @@
         document.getElementById("display-name").textContent =
           moodleUser.fullname;
         document.getElementById("display-meta").textContent =
-          (moodleUser.username ? "@" + moodleUser.username + " · " : "") +
-          "Moodle connecté";
+          `${moodleUser.username ? "@" + moodleUser.username + " · " : ""}Moodle connecté`;
       }
 
       function disconnect() {
         localStorage.removeItem(STORAGE_KEY);
         token = null;
         moodleUser = null;
-        moodleData = { completions: [], grades: [], badges: [], feedbacks: {} };
+        moodleData = { completions: [], grades: [], badges: [] };
         document.getElementById("setup-screen").style.display = "flex";
         document.getElementById("dashboard").style.display = "none";
         document.getElementById("inp-token").value = "";
-        document.getElementById("inp-userid").value = "";
       }
 
-      // ══════════════════════════════
-      // CHARGEMENT
-      // ══════════════════════════════
+      // ══════════════════════════════════════════════════════════
+      // CHARGEMENT DONNÉES MOODLE
+      // ══════════════════════════════════════════════════════════
       async function loadMoodleData() {
         setSyncStatus("loading", "Synchronisation avec Moodle…");
+
         try {
+          // 1. Complétion des activités du cours
           let completions = [];
           try {
             const comp = await moodleCall(
               "core_completion_get_activities_completion_status",
-              { courseid: COURSE_ID, userid: moodleUser.id },
+              {
+                courseid: COURSE_ID,
+                userid: moodleUser.id,
+              },
             );
             completions = comp.statuses || [];
           } catch (e) {
-            console.warn("Complétion:", e.message);
+            console.warn("Complétion non disponible:", e.message);
           }
 
+          // 2. Notes du carnet
           let grades = [];
           try {
             const gr = await moodleCall("gradereport_user_get_grade_items", {
@@ -1200,9 +1294,10 @@
             });
             grades = gr.usergrades?.[0]?.gradeitems || [];
           } catch (e) {
-            console.warn("Notes:", e.message);
+            console.warn("Notes non disponibles:", e.message);
           }
 
+          // 3. Badges
           let badges = [];
           try {
             const bg = await moodleCall("core_badges_get_user_badges", {
@@ -1211,41 +1306,11 @@
             });
             badges = bg.badges || [];
           } catch (e) {
-            console.warn("Badges:", e.message);
+            console.warn("Badges non disponibles:", e.message);
           }
 
-          // Feedbacks ECO+DEP via mod_assign_get_submission_status
-          const feedbacks = {};
-          for (const salle of SALLES_DEF) {
-            if (!salle.assign_ids?.length) continue;
-            for (const a of salle.assign_ids) {
-              try {
-                const sub = await moodleCall(
-                  "mod_assign_get_submission_status",
-                  { assignid: a.assignid },
-                );
-                const fbPlugins = sub?.feedback?.plugins || [];
-                const cp = fbPlugins.find((p) => p.type === "comments");
-                const raw = cp?.editorfields?.[0]?.text || "";
-                const parsed = parseFeedback(raw);
-                feedbacks[a.assignid] = {
-                  ...parsed,
-                  grade:
-                    sub?.feedback?.grade?.grade != null
-                      ? parseFloat(sub.feedback.grade.grade)
-                      : null,
-                  graded: !!sub?.lastattempt?.graded,
-                  submitted:
-                    sub?.lastattempt?.submission?.status === "submitted",
-                  label: a.label,
-                };
-              } catch (e) {
-                console.warn(`Feedback ${a.assignid}:`, e.message);
-              }
-            }
-          }
+          moodleData = { completions, grades, badges };
 
-          moodleData = { completions, grades, badges, feedbacks };
           setSyncStatus(
             "ok",
             `Synchronisé — ${new Date().toLocaleTimeString("fr-BE")}`,
@@ -1253,48 +1318,62 @@
           buildSalles();
           updateHUD();
         } catch (e) {
-          setSyncStatus("err", `Erreur : ${e.message}`);
+          setSyncStatus("err", `Erreur de synchronisation : ${e.message}`);
         }
       }
 
       function setSyncStatus(type, msg) {
-        document.getElementById("sync-dot").className = "sync-dot " + type;
-        document.getElementById("sync-msg").textContent = msg;
+        const dot = document.getElementById("sync-dot");
+        const txt = document.getElementById("sync-msg");
+        dot.className = "sync-dot " + type;
+        txt.textContent = msg;
       }
 
-      // ══════════════════════════════
-      // HELPERS
-      // ══════════════════════════════
-      function isActivityCompleted(cmid) {
-        const s = moodleData.completions.find((c) => c.cmid === cmid);
+      // ══════════════════════════════════════════════════════════
+      // HELPERS DONNÉES
+      // ══════════════════════════════════════════════════════════
+      function isActivityCompleted(activityId) {
+        const s = moodleData.completions.find((c) => c.cmid === activityId);
         return s ? s.state === 1 : false;
+      }
+
+      function getGradeForItem(nameFragment) {
+        const g = moodleData.grades.find(
+          (g) =>
+            g.itemname &&
+            g.itemname.toLowerCase().includes(nameFragment.toLowerCase()),
+        );
+        return g ? parseFloat(g.graderaw) : null;
       }
 
       function isSalleUnlocked(salleId) {
         if (salleId === 1) return true;
-        const prev = SALLES_DEF.find((s) => s.id === salleId - 1);
-        if (!prev) return false;
-        // Mode dev : pas encore configuré → ouvert
-        if (!prev.activity_ids?.length && !prev.assign_ids?.length) return true;
-        // Basé sur les notes des devoirs
-        if (prev.assign_ids?.length) {
-          const thr = prev.unlock_grade_threshold || 60;
-          return prev.assign_ids.every((a) => {
-            const fb = moodleData.feedbacks[a.assignid];
-            return fb?.grade != null && fb.grade >= thr;
-          });
+        // Salle N débloquée si toutes les activités de la salle N-1 sont complétées
+        const prevDef = SALLES_DEF.find((s) => s.id === salleId - 1);
+        if (!prevDef || !prevDef.activity_ids?.length) {
+          // Pas encore configuré → déverrouillé par défaut pour le développement
+          return true;
         }
-        return prev.activity_ids.every((id) => isActivityCompleted(id));
+        return prevDef.activity_ids.every((id) => isActivityCompleted(id));
       }
 
-      // ══════════════════════════════
-      // RENDER
-      // ══════════════════════════════
+      function countCompletedActivities() {
+        return moodleData.completions.filter((c) => c.state === 1).length;
+      }
+
+      // ══════════════════════════════════════════════════════════
+      // RENDER SALLES
+      // ══════════════════════════════════════════════════════════
       function buildSalles() {
         const container = document.getElementById("salles-container");
         container.innerHTML = "";
+
         SALLES_DEF.forEach((def) => {
-          const accessible = def.always_open || isSalleUnlocked(def.id);
+          const unlocked = isSalleUnlocked(def.id);
+          const prevUnlocked = def.id === 1 || isSalleUnlocked(def.id);
+          const accessible = def.always_open || unlocked;
+
+          // Calcul complétion de cette salle
           const totalActs = def.activity_ids?.length || 0;
           const doneActs =
             def.activity_ids?.filter((id) => isActivityCompleted(id)).length ||
@@ -1322,137 +1401,127 @@
               : "badge-locked";
 
           el.innerHTML = `
-          <div class="salle-header" ${accessible ? `onclick="toggleSalle(${def.id})"` : ""}>
-            <span class="salle-icon">${def.icon}</span>
-            <span class="salle-num">SALLE 0${def.id}</span>
-            <span class="salle-title">${def.titre}</span>
-            ${totalActs > 0 ? `<span style="font-size:0.6rem;color:var(--muted);margin-right:0.5rem;">${doneActs}/${totalActs}</span>` : ""}
-            <span class="salle-badge ${badgeCls}">${badgeTxt}</span>
-            <span class="salle-chevron">${accessible ? "▾" : ""}</span>
-          </div>
-          <div class="salle-body">${renderBody(def, accessible, salleComplete, doneActs, totalActs)}</div>`;
+      <div class="salle-header" ${accessible ? `onclick="toggleSalle(${def.id})"` : ""}>
+        <span class="salle-icon">${def.icon}</span>
+        <span class="salle-num">SALLE 0${def.id}</span>
+        <span class="salle-title">${def.titre}</span>
+        ${totalActs > 0 ? `<span style="font-size:0.6rem;color:var(--muted);margin-right:0.5rem;">${doneActs}/${totalActs}</span>` : ""}
+        <span class="salle-badge ${badgeCls}">${badgeTxt}</span>
+        <span class="salle-chevron">${accessible ? "▾" : ""}</span>
+      </div>
+      <div class="salle-body">
+        ${renderSalleBody(def, accessible, salleComplete, doneActs, totalActs)}
+      </div>`;
+
           container.appendChild(el);
         });
       }
 
-      function renderBody(def, accessible, salleComplete, doneActs, totalActs) {
-        if (!accessible)
-          return `<div class="locked-msg">🔒 Cette salle se déverrouille quand tu complètes la mission précédente dans Moodle.</div>`;
+      function renderSalleBody(
+        def,
+        accessible,
+        salleComplete,
+        doneActs,
+        totalActs,
+      ) {
+        if (!accessible) {
+          return `<div class="locked-msg">🔒 Cette salle se déverrouille automatiquement quand tu complètes la mission précédente dans Moodle.</div>`;
+        }
 
-        let h = `<p class="salle-desc">${def.desc}</p>
-        <div class="mission-label">// consigne</div>
-        <p class="salle-desc" style="font-style:italic;">${def.consigne}</p>
-        <div class="mission-label">// livrables</div>
-        <ul class="livrables">${def.livrables.map((l) => `<li>${l}</li>`).join("")}</ul>`;
+        let h = `<p class="salle-desc">${def.desc}</p>`;
 
-        // Vidéos
-        if (def.videos?.length) {
-          h += `<div class="mission-label">// démonstrations</div><div class="videos-grid">`;
+        h += `<div class="mission-label">// consigne</div>
+  <p class="salle-desc" style="font-style:italic;">${def.consigne}</p>
+  <div class="mission-label">// livrables</div>
+  <ul class="livrables">${def.livrables.map((l) => `<li>${l}</li>`).join("")}</ul>`;
+
+        // Vidéos (salle 1)
+        if (def.videos) {
+          h += `<div class="mission-label">// démonstrations</div>
+    <div class="videos-grid">`;
           for (const v of def.videos) {
-            h += `<div class="video-card">${
-              v.yt
-                ? `<iframe class="video-embed" src="https://www.youtube.com/embed/${v.yt}" frameborder="0" allowfullscreen></iframe>`
-                : `<div class="video-placeholder"><span>▶</span><span style="font-size:0.6rem">DÉFI ${v.id} — bientôt disponible</span></div>`
+            h += `<div class="video-card">`;
+            if (v.yt) {
+              h += `<iframe class="video-embed" src="https://www.youtube.com/embed/${v.yt}" frameborder="0" allowfullscreen></iframe>`;
+            } else {
+              h += `<div class="video-placeholder"><span>▶</span><span style="font-size:0.6rem">DÉFI ${v.id} — bientôt disponible</span></div>`;
             }
-            <div class="video-label">${v.label}</div></div>`;
+            h += `<div class="video-label">${v.label}</div></div>`;
           }
           h += `</div>`;
         }
 
-        // Défis avec scores feedback
-        if (def.assign_ids?.length) {
-          h += `<div class="mission-label">// tes défis</div><div class="moodle-block">
-          <div class="moodle-block-header"><span>Remises & scores</span><span style="color:var(--muted)">${doneActs}/${totalActs}</span></div>`;
-
-          for (const a of def.assign_ids) {
-            const done = isActivityCompleted(a.cmid);
-            const fb = moodleData.feedbacks[a.assignid] || {};
-            const grade = fb.grade != null ? Math.round(fb.grade) : null;
-            const eco = fb.eco ?? null;
-            const dep = fb.dep ?? null;
-            const ecoL = eco !== null ? ecoLabel(eco) : null;
-            const depL = dep !== null ? depLabel(dep) : null;
-
-            h += `<div style="border-bottom:1px solid var(--border);">
-            <div class="moodle-activity">
-              <div class="activity-status ${done ? "done" : "pending"}">${done ? "✓" : "○"}</div>
-              <div class="activity-name">${a.label}</div>
-              <div class="activity-grade">${grade !== null ? grade + "/100" : ""}</div>
-            </div>`;
-
-            if (grade !== null) {
-              h += `<div class="defi-scores">
-              <div class="defi-score-item">
-                <div class="defi-score-lbl">Score</div>
-                <div class="defi-score-val" style="color:${grade >= 60 ? "var(--green)" : "var(--red)"}">${grade}/100</div>
-                <div class="defi-score-badge">${grade >= 60 ? "✓ Validé" : "✗ Insuffisant"}</div>
-              </div>
-              <div class="defi-score-item">
-                <div class="defi-score-lbl">Éco</div>
-                <div class="defi-score-val" style="color:${ecoL ? ecoL.color : "var(--muted)"}">${eco !== null ? eco + "/20" : "—"}</div>
-                <div class="defi-score-badge">${ecoL ? ecoL.badge + " " + ecoL.txt : "En attente"}</div>
-              </div>
-              <div class="defi-score-item">
-                <div class="defi-score-lbl">Dépendance IA</div>
-                <div class="defi-score-val" style="color:${depL ? depL.color : "var(--muted)"}">${dep !== null ? dep + "%" : "—"}</div>
-                <div class="defi-score-badge">${depL ? depL.badge + " " + depL.txt : "En attente"}</div>
-              </div>
-            </div>`;
-            } else if (done) {
-              h += `<div style="font-size:0.65rem;color:var(--muted2);padding:0.4rem 1rem;font-style:italic;">Remis · en attente de correction</div>`;
-            } else {
-              h += `<div style="font-size:0.65rem;color:var(--muted2);padding:0.4rem 1rem;font-style:italic;">Pas encore remis</div>`;
-            }
-            h += `</div>`;
-          }
-          h += `</div>`;
-        } else if (def.activity_ids?.length) {
-          h += `<div class="mission-label">// activités Moodle</div><div class="moodle-block">
-          <div class="moodle-block-header"><span>Complétion</span><span style="color:var(--muted)">${doneActs}/${totalActs}</span></div>`;
+        // Activités Moodle liées
+        if (def.activity_ids?.length > 0) {
+          h += `<div class="mission-label">// activités Moodle</div>
+    <div class="moodle-block">
+      <div class="moodle-block-header">
+        <span>Complétion des activités</span>
+        <span style="color:var(--muted)">${doneActs}/${totalActs}</span>
+      </div>`;
           for (const id of def.activity_ids) {
             const done = isActivityCompleted(id);
             const act = moodleData.completions.find((c) => c.cmid === id);
+            const name = act?.cmname || `Activité #${id}`;
+            const grade = act?.graderaw ? ` — ${act.graderaw}/100` : "";
             h += `<div class="moodle-activity">
-            <div class="activity-status ${done ? "done" : "pending"}">${done ? "✓" : "○"}</div>
-            <div class="activity-name">${act?.cmname || "Activité #" + id}</div>
-          </div>`;
+        <div class="activity-status ${done ? "done" : "pending"}">${done ? "✓" : "○"}</div>
+        <div class="activity-name">${name}</div>
+        <div class="activity-grade">${done ? grade || "✓" : ""}</div>
+      </div>`;
           }
           h += `</div>`;
+        } else {
+          // Pas encore configuré
+          h += `<div class="mission-label">// activités Moodle</div>
+    <div class="moodle-block">
+      <div class="moodle-block-header"><span>Activités</span><span style="color:var(--muted2)">À configurer</span></div>
+      <div class="moodle-activity">
+        <div class="activity-status pending">○</div>
+        <div class="activity-name" style="color:var(--muted2);font-style:italic;">Configure les activity_ids dans index.html pour lier les activités Moodle</div>
+      </div>
+    </div>`;
         }
 
-        // Badges
+        // Badges de cette salle
         const salleBadges = moodleData.badges.filter(
           (b) => b.name && b.name.toLowerCase().includes(`salle ${def.id}`),
         );
-        if (salleBadges.length) {
-          h += `<div class="mission-label">// badges</div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem;margin:1rem 0;">`;
+
+        if (salleBadges.length > 0) {
+          h += `<div class="mission-label">// badges obtenus</div>
+    <div class="scores-row">`;
           for (const b of salleBadges) {
-            h += `<div style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:0.75rem;">
-            <div style="font-size:1.3rem;">🏅</div>
-            <div style="font-size:0.65rem;color:var(--muted);margin-top:0.25rem;">${b.name}</div>
-          </div>`;
+            h += `<div class="score-cell">
+        <div class="score-cell-label">${b.name}</div>
+        <div class="score-cell-val">🏅</div>
+        <div class="score-cell-sub">${b.dateissued ? new Date(b.dateissued * 1000).toLocaleDateString("fr-BE") : ""}</div>
+      </div>`;
           }
           h += `</div>`;
         }
 
-        if (salleComplete)
+        if (salleComplete) {
           h += `<div class="validated-msg">✓ Mission 0${def.id} complétée dans Moodle</div>`;
+        }
+
         return h;
       }
 
       function toggleSalle(id) {
         document.querySelectorAll(".salle").forEach((el) => {
-          const h = el.querySelector(".salle-header");
-          if (h?.getAttribute("onclick") === `toggleSalle(${id})`)
+          const header = el.querySelector(".salle-header");
+          if (header?.getAttribute("onclick") === `toggleSalle(${id})`) {
             el.classList.toggle("expanded");
+          }
         });
       }
 
-      // ══════════════════════════════
+      // ══════════════════════════════════════════════════════════
       // HUD
-      // ══════════════════════════════
+      // ══════════════════════════════════════════════════════════
       function updateHUD() {
-        const completedSalles = SALLES_DEF.filter((def) => {
+        const completedSalles = SALLES_DEF.filter((def, i) => {
           const total = def.activity_ids?.length || 0;
           const done =
             def.activity_ids?.filter((id) => isActivityCompleted(id)).length ||
@@ -1460,52 +1529,36 @@
           return total > 0 && done === total;
         }).length;
 
-        // Scores mission 1
-        const s1 = SALLES_DEF.find((s) => s.id === 1);
-        let totalScore = null,
-          ecoArr = [],
-          depArr = [];
-        if (s1?.assign_ids?.length) {
-          let sum = 0,
-            count = 0;
-          for (const a of s1.assign_ids) {
-            const fb = moodleData.feedbacks[a.assignid] || {};
-            if (fb.grade != null) {
-              sum += fb.grade;
-              count++;
-            }
-            if (fb.eco != null) ecoArr.push(fb.eco);
-            if (fb.dep != null) depArr.push(fb.dep);
-          }
-          if (count > 0) totalScore = Math.round(sum);
-        }
-
-        const avgEco = ecoArr.length
-          ? Math.round(ecoArr.reduce((a, b) => a + b, 0) / ecoArr.length)
-          : null;
-        const avgDep = depArr.length
-          ? Math.round(depArr.reduce((a, b) => a + b, 0) / depArr.length)
-          : null;
-        const ecoL = avgEco !== null ? ecoLabel(avgEco) : null;
-        const depL = avgDep !== null ? depLabel(avgDep) : null;
-
-        const totalCompleted = moodleData.completions.filter(
-          (c) => c.state === 1,
-        ).length;
+        const totalCompleted = countCompletedActivities();
         const totalActs = moodleData.completions.length;
+        const badgeCount = moodleData.badges.length;
         const pct =
           totalActs > 0 ? Math.round((totalCompleted / totalActs) * 100) : 0;
+
+        // Score salle 1 (cherche une note avec "défi" dans le nom)
+        const scoreDefi1 =
+          getGradeForItem("défi 1") ?? getGradeForItem("defi1") ?? null;
+        const scoreDefi2 =
+          getGradeForItem("défi 2") ?? getGradeForItem("defi2") ?? null;
+        const totalScore =
+          scoreDefi1 !== null || scoreDefi2 !== null
+            ? (scoreDefi1 || 0) + (scoreDefi2 || 0)
+            : null;
 
         document.getElementById("recap-salles").textContent =
           completedSalles + "/5";
         document.getElementById("recap-score").textContent =
           totalScore !== null ? totalScore + "/200" : "—";
-        document.getElementById("recap-eco").textContent = ecoL
-          ? ecoL.badge + " " + ecoL.txt
-          : "—";
-        document.getElementById("recap-dep").textContent = depL
-          ? depL.badge + " " + depL.txt
-          : "—";
+        document.getElementById("recap-completed").textContent =
+          totalActs > 0 ? `${totalCompleted}/${totalActs}` : "—";
+        document.getElementById("recap-badges").textContent =
+          badgeCount > 0
+            ? moodleData.badges
+                .slice(0, 3)
+                .map((b) => "🏅")
+                .join("") || badgeCount
+            : "—";
+
         document.getElementById("xp-fill").style.width = pct + "%";
         document.getElementById("xp-pct").textContent = pct + " XP";
 
@@ -1515,38 +1568,28 @@
         document
           .getElementById("hud-score")
           .classList.toggle("active", totalScore !== null);
-        document
-          .getElementById("hud-eco")
-          .classList.toggle("active", ecoL !== null);
-        document
-          .getElementById("hud-dep")
-          .classList.toggle("active", depL !== null);
       }
 
-      // ══════════════════════════════
+      // ══════════════════════════════════════════════════════════
       // INIT
-      // ══════════════════════════════
+      // ══════════════════════════════════════════════════════════
       function init() {
         const saved = loadState();
         if (saved.token && saved.user) {
           token = saved.token;
           moodleUser = saved.user;
-          if (saved.user.id)
-            document.getElementById("inp-userid").value = saved.user.id;
           showDashboard();
           loadMoodleData();
         }
-        document
-          .getElementById("inp-userid")
-          .addEventListener("keydown", (e) => {
-            if (e.key === "Enter") connectMoodle();
-          });
+
+        // Connexion sur Entrée
         document
           .getElementById("inp-token")
           .addEventListener("keydown", (e) => {
             if (e.key === "Enter") connectMoodle();
           });
       }
+
       init();
     </script>
   </body>
