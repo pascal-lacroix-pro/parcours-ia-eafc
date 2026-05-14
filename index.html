@@ -1096,7 +1096,7 @@
             { id: "C", label: "Défi C — Ambiance sonore", yt: "" },
             { id: "D", label: "Défi D — Avant / Après", yt: "" },
           ],
-          activity_ids: [], // ← ex: [12345, 12346]  IDs activités Moodle salle 1
+          activity_ids: [45929, 45930], // ← ex: [12345, 12346]  IDs activités Moodle salle 1
           always_open: true, // salle 1 toujours accessible
         },
         {
@@ -1250,7 +1250,7 @@
         document.getElementById("display-name").textContent =
           moodleUser.fullname;
         document.getElementById("display-meta").textContent =
-          `@${moodleUser.username} · Moodle connecté`;
+          `${moodleUser.username ? "@" + moodleUser.username + " · " : ""}Moodle connecté`;
       }
 
       function disconnect() {
