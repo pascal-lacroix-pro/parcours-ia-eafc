@@ -1,6 +1,7 @@
 {
   "course_id": 1392,
   "moodle_url": "https://campus.promotion-sociale.be",
+  "prerequis_id": 45957,
   "salles": [
     {
       "id": 1,
@@ -13,15 +14,42 @@
         "Défi #2 — différent du premier"
       ],
       "videos": [
-        { "id": "A", "label": "Défi A — Lampe torche",       "yt": "QT-yTUu1Vg4" },
-        { "id": "B", "label": "Défi B — Table de relaxation", "yt": "EftKd4M5Q8w" },
-        { "id": "C", "label": "Défi C — Le scanner",          "yt": "vl2PiVQu7qQ" },
-        { "id": "D", "label": "Défi D — Slider audio-vidéo",  "yt": "VfGabLFPrC8" }
+        {
+          "id": "A",
+          "label": "Défi A — Lampe torche",
+          "yt": "QT-yTUu1Vg4"
+        },
+        {
+          "id": "B",
+          "label": "Défi B — Table de relaxation",
+          "yt": "EftKd4M5Q8w"
+        },
+        {
+          "id": "C",
+          "label": "Défi C — Le scanner",
+          "yt": "vl2PiVQu7qQ"
+        },
+        {
+          "id": "D",
+          "label": "Défi D — Slider audio-vidéo",
+          "yt": "VfGabLFPrC8"
+        }
       ],
-      "activity_ids": [45929, 45930],
+      "activity_ids": [
+        45929,
+        45931
+      ],
       "assign_ids": [
-        { "cmid": 45929, "assignid": 4288, "label": "Défi #1" },
-        { "cmid": 45931, "assignid": 4290, "label": "Défi #2" }
+        {
+          "cmid": 45929,
+          "assignid": 4288,
+          "label": "Défi #1"
+        },
+        {
+          "cmid": 45931,
+          "assignid": 4290,
+          "label": "Défi #2"
+        }
       ],
       "unlock_grade_threshold": 60,
       "always_open": true

@@ -946,6 +946,7 @@
       let MOODLE_URL = "";
       let COURSE_ID = 0;
       let SALLES_DEF = [];
+      let PREREQUIS_ID = null;
 
       async function loadConfig() {
         try {
@@ -955,6 +956,7 @@
           MOODLE_URL = cfg.moodle_url;
           COURSE_ID = cfg.course_id;
           SALLES_DEF = cfg.salles;
+          PREREQUIS_ID = cfg.prerequis_id || null;
         } catch (e) {
           document.body.innerHTML = `<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;font-family:monospace;color:#ff4466;background:#111827;padding:2rem;text-align:center;">
           <div>
@@ -1209,12 +1211,20 @@
         return s ? s.state === 1 : false;
       }
 
+      function isPrerequisCompleted() {
+        const prereqId = PREREQUIS_ID;
+        if (!prereqId) return true; // pas de prérequis configuré → OK
+        return isActivityCompleted(prereqId);
+      }
+
       function isSalleUnlocked(salleId) {
-        if (salleId === 1) return true;
+        // Salle 1 — vérifier le prérequis quiz
+        if (salleId === 1) return isPrerequisCompleted();
         const prev = SALLES_DEF.find((s) => s.id === salleId - 1);
         if (!prev) return false;
-        // Mode dev : pas encore configuré → ouvert
-        if (!prev.activity_ids?.length && !prev.assign_ids?.length) return true;
+        // Pas encore configuré → verrouillé
+        if (!prev.activity_ids?.length && !prev.assign_ids?.length)
+          return false;
         // Basé sur les notes des devoirs
         if (prev.assign_ids?.length) {
           const thr = prev.unlock_grade_threshold || 60;
